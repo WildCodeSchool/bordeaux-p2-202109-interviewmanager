@@ -7,3 +7,11 @@ body {
     font-family: 'Oswald', sans-serif;
     background-color: #EDEDE8;
 }
+
+#boostrap-override .nav-link {
+    color: var(--primary);
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: -7rem;
+}
