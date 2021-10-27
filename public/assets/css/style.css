@@ -15,3 +15,7 @@ body {
 .dropdown-menu[data-bs-popper] {
     left: -7rem;
 }
+
+.borderForm {
+    border: solid 2px black;
+}
