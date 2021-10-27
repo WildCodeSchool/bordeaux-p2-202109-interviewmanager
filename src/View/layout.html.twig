@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,7 +12,7 @@
     {% block stylesheet %}{% endblock %}
     <link rel="icon" href="/assets/images/favicon.png">
 </head>
-<body id="boostrap-override">
+<body id="boostrap-override" class="d-flex flex-column h-100">
     {% include 'components/_navbar.html.twig' %}
     {% block content %}{% endblock %}
     {% include 'components/_footer.html.twig' %}
