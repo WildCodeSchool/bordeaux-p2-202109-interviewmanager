@@ -7,3 +7,7 @@ body {
     font-family: 'Oswald', sans-serif;
     background-color: #EDEDE8;
 }
+
+.borderForm {
+    border: solid 2px black;
+}
