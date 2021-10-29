@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap%27');
 :root {
     --primary: #E55855;
+    --secondary: #EDEDE8;
 }
 
 body {
     font-family: 'Oswald', sans-serif;
-    background-color: #EDEDE8;
+    background-color: var(--secondary);
 }
 
 #boostrap-override .nav-link {
