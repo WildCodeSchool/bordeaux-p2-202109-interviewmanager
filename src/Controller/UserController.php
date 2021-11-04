@@ -4,11 +4,35 @@ namespace App\Controller;
 
 
 use App\Model\CompanyManager;
+
 use App\Model\UserManager;
 
 class UserController extends AbstractController
 {
-    public function index(): string
+    public function index2(): string
+    {
+        $userManager = new UserManager();
+        $userCompany = $userManager->selectCompanyByUser(1);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_POST['user_id'] = 1;
+            $userCompany = $userManager->updateCompanyAdvancement($_POST);
+            header('Location: /accueil');
+        }
+        $errors=[];
+        $success = '';
+        if (!empty($_GET['errors'])){
+            $errors['error'] = $_GET['errors'];
+        }
+        if (!empty($_GET['success'])){
+            $success = $_GET['success'];
+        }
+
+        return $this->twig->render('User/index.html.twig', ['user_company' => $userCompany, 'errors' => $errors,
+            'success' => $success]);
+    }
+
+    public function index()
     {
         $errors = [];
         $success = '';
@@ -34,11 +58,14 @@ class UserController extends AbstractController
                 $companyManager->insert($_POST);
                 $success = 'Entreprise bien enregistrée';
             }
+            $qstr = http_build_query(
+                [
+                'errors' => $errors,
+                'success' => $success,
+                ]
+        );
+            header('Location: accueil?' . $qstr);
         }
-        return $this->twig->render('User/index.html.twig', [
-            'errors' => $errors,
-            'success' => $success,
-            ]);
     }
     public function register(): string
     {
