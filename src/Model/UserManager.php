@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-
 use App\Model\AbstractManager;
-
 
 class UserManager extends AbstractManager
 {
