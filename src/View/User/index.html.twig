@@ -1,5 +1,53 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <div class="container">
+    <ul class="list-group mt-5">
+        {% for company in user_company  %}
+            <li class="list-group-item d-flex justify-content-around align-items-center">
+                <div>
+                    <h5><a href="/">{{ company.name }}</a></h5>
+                </div>
+                <form class="d-flex align-items-center" method="post">
+
+
+                        <div class="mb-3">
+                            <label for="disabledSelect" class="form-label"></label>
+                            <input type="hidden" name="company-id" value="{{ company.id }}">
+                            <select id="disabledSelect" name="advancement" class="form-select">
+                                <option selected>
+                                    {% if company.advancement_id == 1 %} Intéressé
+                                {% elseif company.advancement_id == 2 %} Prospection
+                                {%  elseif company.advancement_id == 3 %} Envoi CV
+                                {% elseif company.advancement_id == 4 %} Prise de contact
+                                    {% endif %} </option>
+                                <option value="1">Intéressé</option>
+                                <option value="2">Prospection</option>
+                                <option value="3">Envoi CV</option>
+                                <option value="4">Prise de contact</option>
+                            </select>
+                        </div>
+                      <div class="mt-2">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                      </div>
+                </form>
+                <div class="progress col-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="
+                            width:
+                    {% if company.advancement_id == 1 %} 25%
+                    {% elseif company.advancement_id == 2 %} 50%
+                    {%  elseif company.advancement_id == 3 %} 75%
+                    {% elseif company.advancement_id ==4 %} 100%
+                    {% endif %}"
+                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+
+                    </div>
+                </div>
+
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+
 
 {% endblock %}

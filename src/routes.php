@@ -15,4 +15,5 @@ return [
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
     'accueil' => ['UserController', 'index', ['id']],
+
 ];
