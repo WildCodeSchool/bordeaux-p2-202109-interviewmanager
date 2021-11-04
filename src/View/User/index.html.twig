@@ -1,7 +1,34 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="container">
+    <form method="post" action="/addEntreprise" class="d-flex justify-content-center p-5 mt-5">
+        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+            <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
+            <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
+            {% if errors is not empty %}
+                <div class="alert alert-danger text-center">
+                    {{ errors.error | first }}
+                </div>
+            {% endif %}
+            {% if success|length > 0 %}
+                <div class="alert alert-success text-center">
+                    {{ success }}
+                </div>
+            {% endif %}
+            <div class="m-2">
+                <label for="company" class="form-label">Entre une entreprise</label>
+                <input type="text" name="name" class="form-control" id="company">
+            </div>
+            <div class="m-2">
+                <input type="checkbox" name="is_recommendating" class="form-check-input" id="is_recommendating">
+                <label class="form-check-label" for="exampleCheck1">J'ai des relations dans cette entreprise</label>
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
+        </div>
+    </form>
+
+
+    <div class="container mb-5">
     <ul class="list-group mt-5">
         {% for company in user_company  %}
             <li class="list-group-item d-flex justify-content-around align-items-center">
@@ -32,7 +59,7 @@
                       </div>
                 </form>
                 <div class="progress col-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="
+                    <div class="progress-bar progress-bar-striped progress-bar-animated -Danger" role="progressbar" style="
                             width:
                     {% if company.advancement_id == 1 %} 25%
                     {% elseif company.advancement_id == 2 %} 50%
@@ -48,6 +75,5 @@
         {% endfor %}
     </ul>
     </div>
-
 
 {% endblock %}
