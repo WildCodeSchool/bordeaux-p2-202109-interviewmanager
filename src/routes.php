@@ -16,4 +16,5 @@ return [
     'items/delete' => ['ItemController', 'delete',],
     'accueil' => ['UserController', 'index', ['id']],
     'logout' => ['UserController', 'logout'],
+    'addEntreprise' => ['UserController', 'index', ['id']],
 ];
