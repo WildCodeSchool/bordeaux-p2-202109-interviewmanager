@@ -23,9 +23,13 @@ class UserController extends AbstractController
             } else {
                 $_POST['is_recommendating'] = true;
             }
+            $companyManager = new CompanyManager();
+            $company = $companyManager->selectOneByName($_POST);
+            if ($company) {
+                $errors[] = 'L\'entreprise existe déjà';
+            }
             if (empty($errors)) {
-                $userManager = new CompanyManager();
-                $userManager->insert($_POST);
+                $companyManager->insert($_POST);
                 $success = 'Entreprise bien enregistrée';
             }
         }

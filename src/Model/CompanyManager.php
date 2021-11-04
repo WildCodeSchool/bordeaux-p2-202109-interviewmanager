@@ -16,4 +16,13 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':is_recommendating', $data['is_recommendating'], \PDO::PARAM_INT);
         $statement->execute();
     }
+
+    public function selectOneByName(array $data)
+    {
+        $statement = $this->pdo->prepare('SELECT name FROM company WHERE name=:name AND user_id=:user_id');
+        $statement->bindValue(':name', $data['name'], \PDO::PARAM_STR);
+        $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }
