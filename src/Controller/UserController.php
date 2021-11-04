@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Model\CompanyManager;
 use App\Model\UserManager;
 
@@ -111,6 +110,6 @@ class UserController extends AbstractController
     public function logout()
     {
         session_destroy();
-        header( 'Location: /');
+        header('Location: /');
     }
 }
