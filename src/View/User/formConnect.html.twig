@@ -1,9 +1,12 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-    <form class="d-flex justify-content-center p-5 mt-5">
+    <form class="d-flex justify-content-center p-5 mt-5" method="post">
         <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
             <p><i class="fas fa-user-circle fa-5x d-flex justify-content-center"></i></p>
             <h2 class="d-flex justify-content-center">Connexion</h2>
+            {% if error|length > 0 %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endif %}
             <div class="m-2">
                 <label for="InputEmail1" class="form-label">Adresse Mail</label>
                 <input type="email" name="InputEmail1" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
