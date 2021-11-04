@@ -2,11 +2,14 @@
 
 namespace App\Model;
 
+
 use App\Model\AbstractManager;
+
 
 class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
+
 
     public function create(array $userData)
     {
@@ -20,11 +23,11 @@ class UserManager extends AbstractManager
         $statement->bindValue(':password', $userData['InputPassword1'], \PDO::PARAM_STR);
         $statement->execute();
     }
-    public function selectOneByEmail(string $mail)
+
+    public function selectOneByEmail(string $inputEmail)
     {
-        // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE mail=:mail");
-        $statement->bindValue('mail', $mail, \PDO::PARAM_STR);
+        $statement = $this->pdo->prepare("SELECT * FROM user WHERE mail=:mail");
+        $statement->bindValue('mail', $inputEmail, \PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();

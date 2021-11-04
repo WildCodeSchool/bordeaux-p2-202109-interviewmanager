@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <form method="post" class="d-flex justify-content-center p-5 mt-5">
+        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+            <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
+            <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
+            {% if errors is not empty %}
+                <div class="alert alert-danger text-center">
+                    {{ errors|first }}
+                </div>
+            {% endif %}
+            {% if success|length > 0 %}
+                <div class="alert alert-success text-center">
+                    {{ success }}
+                </div>
+            {% endif %}
+            <div class="m-2">
+                <label for="company" class="form-label">Entre une entreprise</label>
+                <input type="text" name="name" class="form-control" id="company">
+            </div>
+            <div class="m-2">
+                <input type="checkbox" name="is_recommendating" class="form-check-input" id="is_recommendating">
+                <label class="form-check-label" for="exampleCheck1">J'ai des relations dans cette entreprise</label>
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
+        </div>
+    </form>
+{% endblock %}
