@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Model\CompanyManager;
 
 use App\Model\UserManager;
@@ -121,6 +120,7 @@ class UserController extends AbstractController
             if ($userData !== false) {
                 if (password_verify($_POST['InputPassword1'], $userData['password'])) {
                     $_SESSION['user'] = $userData;
+                    header('Location: accueil');
                 } else {
                     $error = 'Vos identifiants sont incorrects';
                 }
@@ -132,5 +132,11 @@ class UserController extends AbstractController
                 'session' => $_SESSION,
                 'error' => $error,
                 ]);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /');
     }
 }
