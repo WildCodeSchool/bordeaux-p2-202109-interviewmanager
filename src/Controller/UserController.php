@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Model\CompanyManager;
-
 use App\Model\UserManager;
 
 class UserController extends AbstractController
 {
-    public function index2(): string
+    public function index(): string
     {
         $userManager = new UserManager();
         $userCompany = $userManager->selectCompanyByUser(1);
@@ -18,12 +17,12 @@ class UserController extends AbstractController
             $userCompany = $userManager->updateCompanyAdvancement($_POST);
             header('Location: /accueil');
         }
-        $errors=[];
+        $errors = [];
         $success = '';
-        if (!empty($_GET['errors'])){
+        if (!empty($_GET['errors'])) {
             $errors['error'] = $_GET['errors'];
         }
-        if (!empty($_GET['success'])){
+        if (!empty($_GET['success'])) {
             $success = $_GET['success'];
         }
 
@@ -31,7 +30,7 @@ class UserController extends AbstractController
             'success' => $success]);
     }
 
-    public function index()
+    public function addCompany()
     {
         $errors = [];
         $success = '';
@@ -57,12 +56,10 @@ class UserController extends AbstractController
                 $companyManager->insert($_POST);
                 $success = 'Entreprise bien enregistrée';
             }
-            $qstr = http_build_query(
-                [
+            $qstr = http_build_query([
                 'errors' => $errors,
                 'success' => $success,
-                ]
-        );
+                ]);
             header('Location: accueil?' . $qstr);
         }
     }
