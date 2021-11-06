@@ -68,8 +68,8 @@ class UserController extends AbstractController
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $post = [];
-            foreach ($_POST as $value) {
-                $post[] = trim($value);
+            foreach ($_POST as $key => $value) {
+                $post[$key] = trim($value);
             }
             if (empty($_POST["firstname"])) {
                 $errors[] = "Un nom est requis.";
@@ -102,7 +102,7 @@ class UserController extends AbstractController
             }
             if (count($errors) === 0) {
                 $userManager = new UserManager();
-                $_POST['InputPassword1'] = password_hash($_POST['InputPassword1'], PASSWORD_DEFAULT);
+                $post['InputPassword1'] = password_hash($_POST['InputPassword1'], PASSWORD_DEFAULT);
                 $userManager->create($post);
             }
         }
