@@ -9,6 +9,9 @@ class UserController extends AbstractController
 {
     public function index(): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
         $userManager = new UserManager();
         //TODO to put a id in dynamic
         $userCompanies = $userManager->selectCompaniesByUser(1);
@@ -33,6 +36,9 @@ class UserController extends AbstractController
     }
     public function register(): string
     {
+        if (!empty($_SESSION)) {
+            header('Location: /accueil');
+        }
         $formValidator = new FormValidator();
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,6 +63,9 @@ class UserController extends AbstractController
     }
     public function connect(): string
     {
+        if (!empty($_SESSION)) {
+            header('Location: /accueil');
+        }
         $error = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userManager = new UserManager();
@@ -79,6 +88,9 @@ class UserController extends AbstractController
 
     public function logout()
     {
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
         session_destroy();
         header('Location: /');
     }
