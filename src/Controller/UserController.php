@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
 
@@ -11,11 +10,13 @@ class UserController extends AbstractController
     public function index(): string
     {
         $userManager = new UserManager();
-        $userCompany = $userManager->selectCompanyByUser(1);
+        //TODO to put a id in dynamic
+        $userCompanies = $userManager->selectCompaniesByUser(1);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //TODO to put a id in dynamic
             $_POST['user_id'] = 1;
-            $userCompany = $userManager->updateCompanyAdvancement($_POST);
+            $userManager->updateCompanyAdvancement($_POST);
             header('Location: /accueil');
         }
         $errors = [];
@@ -27,42 +28,8 @@ class UserController extends AbstractController
             $success = $_GET['success'];
         }
 
-        return $this->twig->render('User/index.html.twig', ['user_company' => $userCompany, 'errors' => $errors,
+        return $this->twig->render('User/index.html.twig', ['user_companies' => $userCompanies, 'errors' => $errors,
             'success' => $success]);
-    }
-
-    public function addCompany()
-    {
-        $errors = [];
-        $success = '';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $_POST['user_id'] = 1;
-            $_POST['name'] = trim($_POST['name']);
-            if (empty($_POST['name'])) {
-                $errors[] = 'Merci de rentrer le nom d\'une entreprise';
-            } elseif (strlen($_POST['name']) < 2) {
-                $errors[] = 'Le nom de l\'entreprise doit contenir minimum 2 caractères';
-            }
-            if (isset($_POST['is_recommendating'])) {
-                $_POST['is_recommendating'] = false;
-            } else {
-                $_POST['is_recommendating'] = true;
-            }
-            $companyManager = new CompanyManager();
-            $company = $companyManager->selectOneByName($_POST);
-            if ($company) {
-                $errors[] = 'L\'entreprise existe déjà';
-            }
-            if (empty($errors)) {
-                $companyManager->insert($_POST);
-                $success = 'Entreprise bien enregistrée';
-            }
-            $qstr = http_build_query([
-                'errors' => $errors,
-                'success' => $success,
-                ]);
-            header('Location: accueil?' . $qstr);
-        }
     }
     public function register(): string
     {
@@ -82,7 +49,7 @@ class UserController extends AbstractController
             $errors = $formValidator->getErrors();
             if (count($errors) === 0) {
                 $userManager = new UserManager();
-                $_POST['InputPassword1'] = password_hash($_POST['InputPassword1'], PASSWORD_DEFAULT);
+                $posts['InputPassword1'] = password_hash($_POST['InputPassword1'], PASSWORD_DEFAULT);
                 $userManager->create($posts);
             }
         }
