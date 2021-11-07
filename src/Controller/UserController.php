@@ -73,7 +73,6 @@ class UserController extends AbstractController
             }
         }
         return $this->twig->render('User/formConnect.html.twig', [
-                'session' => $_SESSION,
                 'error' => $error,
                 ]);
     }
