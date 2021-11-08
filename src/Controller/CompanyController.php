@@ -20,9 +20,9 @@ class CompanyController extends AbstractController
                 $errors[] = 'Le nom de l\'entreprise doit contenir minimum 2 caractères';
             }
             if (isset($_POST['is_recommendating'])) {
-                $_POST['is_recommendating'] = false;
-            } else {
                 $_POST['is_recommendating'] = true;
+            } else {
+                $_POST['is_recommendating'] = false;
             }
             $companyManager = new CompanyManager();
             $company = $companyManager->selectOneByName($_POST);
@@ -38,6 +38,8 @@ class CompanyController extends AbstractController
                 'success' => $success,
             ]);
             header('Location: accueil?' . $queryString);
+        } else {
+            header('Location: accueil');
         }
     }
 }
