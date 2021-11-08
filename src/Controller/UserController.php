@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
 
@@ -12,14 +13,13 @@ class UserController extends AbstractController
         if (empty($_SESSION)) {
             header('Location: /');
         }
-        $userManager = new UserManager();
-        //TODO to put a id in dynamic
-        $userCompanies = $userManager->selectCompaniesByUser(1);
+        $userId = $_SESSION['user']['id'];
+        $companyManager = new CompanyManager();
+        $userCompanies = $companyManager->selectCompaniesByUser($userId);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //TODO to put a id in dynamic
-            $_POST['user_id'] = 1;
-            $userManager->updateCompanyAdvancement($_POST);
+            $_POST['user_id'] = $userId;
+            $companyManager->updateCompanyAdvancement($_POST);
             header('Location: /accueil');
         }
         $errors = [];
@@ -31,8 +31,11 @@ class UserController extends AbstractController
             $success = $_GET['success'];
         }
 
-        return $this->twig->render('User/index.html.twig', ['user_companies' => $userCompanies, 'errors' => $errors,
-            'success' => $success]);
+        return $this->twig->render('User/index.html.twig', [
+            'user_companies' => $userCompanies,
+            'errors' => $errors,
+            'success' => $success
+        ]);
     }
     public function register(): string
     {
