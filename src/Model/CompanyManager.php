@@ -28,14 +28,14 @@ class CompanyManager extends AbstractManager
 
     public function update(array $posts)
     {
-      $statement = $this->pdo->prepare('
+        $statement = $this->pdo->prepare('
                 UPDATE company 
                 SET description=:description, address=:address, 
                 phone_number=:phone_number, mail=:mail');
-      $statement->bindValue(':description', $posts['description'], \PDO::PARAM_STR);
-      $statement->bindValue(':address', $posts['address'], \PDO::PARAM_STR);
-      $statement->bindValue(':phone_number', $posts['phone_number'], \PDO::PARAM_STR);
-      $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
-      $statement->execute();
+        $statement->bindValue(':description', $posts['description'], \PDO::PARAM_STR);
+        $statement->bindValue(':address', $posts['address'], \PDO::PARAM_STR);
+        $statement->bindValue(':phone_number', $posts['phone_number'], \PDO::PARAM_STR);
+        $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
+        $statement->execute();
     }
 }
