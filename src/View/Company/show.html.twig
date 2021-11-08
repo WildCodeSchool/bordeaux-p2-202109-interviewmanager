@@ -1,18 +1,42 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="card text-center">
-        <div class="card-header">
-            <h2>{{ company.name }}</h2>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Description : {{ company.description ?? 'non connue'}}</p>
-            <p class="card-text">Adresse : {{ company.address ?? 'non connue'}}</p>
-            <p class="card-text">Téléphone : {{ company.phone_number ?? 'non connu'}}</p>
-            <p class="card-text">Email : {{ company.mail ?? 'non connu'}}</p>
-        </div>
-        <div class="card-footer text-muted">
-            Personnes qui connaissent cette entreprise
+    <div class="d-flex justify-content-center">
+        <div class="card text-left mt-5 col-12 col-sm-10 col-md-8 col-lg-4">
+            <div class="card-header">
+                <h2 class="text-center">{{ company.name }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Adresse : {{ company.address ?? 'non connue'}}</p>
+                <p class="card-text">Téléphone : {{ company.phone_number ?? 'non connu'}}</p>
+                <p class="card-text">Email : {{ company.mail ?? 'non connu'}}</p>
+                <p class="card-text">Description : {{ company.description ?? 'non connue'}}</p>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Personnes qui connaissent cette entreprise
+            </div>
         </div>
     </div>
+
+    <form class="d-flex justify-content-center p-5 mt-5" method="post">
+        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+            <div class="mb-3">
+                <label for="address" class="form-label">Adresse</label>
+                <input type="text" class="form-control" value="{{ company.address }}" id="address" name="address">
+            </div>
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Téléphone</label>
+                <input type="text" class="form-control" value="{{ company.phone_number }}" id="phone_number" name="phone_number">
+            </div>
+            <div class="mb-3">
+                <label for="mail" class="form-label">Email</label>
+                <input type="text" class="form-control" value="{{ company.mail }}" id="mail" name="mail">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description">{{ company.description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 {% endblock %}

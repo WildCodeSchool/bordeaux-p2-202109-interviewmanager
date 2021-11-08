@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\CompanyManager;
+use App\Service\FormValidator;
 
 class CompanyController extends AbstractController
 {
@@ -44,6 +45,14 @@ class CompanyController extends AbstractController
     public function show(): string
     {
         $companyManger = new CompanyManager();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $posts = [];
+            foreach ($_POST as $key => $value) {
+                $posts[$key] = trim($value);
+            }
+            $companyManger->update($posts);
+            header('Location: /accueil');
+        }
         $company = $companyManger->selectOneById($_GET['id']);
         return $this->twig->render('Company/show.html.twig', [
             'company' => $company
