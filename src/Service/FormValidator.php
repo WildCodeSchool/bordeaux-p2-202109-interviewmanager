@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use _HumbugBox5ccdb2ccdb35\phpDocumentor\Reflection\Types\Null_;
+
 class FormValidator
 {
     private $errors = [];
 
-    public function checkName(string $string, $name): void
+    public function checkName(string $string, string $name): void
     {
         if (empty($string)) {
             $this->errors[] = 'Le champs ' . $name . ' est requis';
