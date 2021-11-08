@@ -40,4 +40,14 @@ class CompanyController extends AbstractController
             header('Location: accueil?' . $queryString);
         }
     }
+
+    public function show(): string
+    {
+        $companyManger = new CompanyManager();
+        $company = $companyManger->selectOneById($_GET['id']);
+        return $this->twig->render('Company/show.html.twig', [
+            'company' => $company
+            ]);
+    }
 }
+

@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="card text-center">
+        <div class="card-header">
+            <h2>{{ company.name }}</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Description : {{ company.description ?? 'non connue'}}</p>
+            <p class="card-text">Adresse : {{ company.address ?? 'non connue'}}</p>
+            <p class="card-text">Téléphone : {{ company.phone_number ?? 'non connu'}}</p>
+            <p class="card-text">Email : {{ company.mail ?? 'non connu'}}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Personnes qui connaissent cette entreprise
+        </div>
+    </div>
+{% endblock %}
