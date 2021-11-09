@@ -17,13 +17,17 @@ class DashboardController extends AbstractController
             $_POST['is_recommendating'] = true;
             if (empty($_POST['name'])) {
                 $errors[] = 'Le champs ne doit pas être vide';
+            } elseif ($companyManager->selectOneByName($_POST)) {
+                $errors[] = 'L\'entreprise existe déjà';
             } else {
                 $success = 'Entreprise bien enregistrée';
             }
             $queryString = [
                 'errors' => $errors,
                 'success' => $success];
-            $companyManager->insert($_POST);
+            if (empty($errors)) {
+                $companyManager->insert($_POST);
+            }
             header('Location: admin?' . http_build_query($queryString));
         }
         if (!empty($_GET['errors'])) {
@@ -32,10 +36,11 @@ class DashboardController extends AbstractController
         if (!empty($_GET['success'])) {
             $success = $_GET['success'];
         }
-        $companyManager = new CompanyManager();
-        $companiesRecommendating = $companyManager->countAllRecommending();
+        $recommendatingCompanies = $companyManager->allRecommending();
+        $allInteresting = $companyManager->allName();
         return $this->twig->render('Admin/index.html.twig', [
-            'companies_recommendating' => $companiesRecommendating,
+            'companies_recommendating' => $recommendatingCompanies,
+            'all_interesting' => $allInteresting,
             'errors' => $errors,
             'success' => $success,
         ]);

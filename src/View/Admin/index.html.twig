@@ -22,5 +22,26 @@
             <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
         </div>
     </form>
-
+    <div class="container d-flex justify-content-between mb-5">
+        <div class="card col-5">
+            <div class="card-body">
+                <h5 class="text-center">Liste des entreprises recommandées</h5>
+                <ul class="list-group">
+                    {% for company in companies_recommendating %}
+                        <li class="list-group-item">{{ company.name }} est recommandée par {{ company.nb_user_recommendating }} personnes</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="card col-5">
+            <div class="card-body">
+                <h5 class="text-center">Liste des entreprises en sourcing</h5>
+                <ul class="list-group">
+                    {% for company in all_interesting %}
+                        <li class="list-group-item">{{ company.name }} est suivie par {{ company.nb_user_interessing }} personnes</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
