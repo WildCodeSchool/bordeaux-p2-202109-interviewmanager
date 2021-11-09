@@ -5,14 +5,6 @@ namespace App\Model;
 class CompanyManager extends AbstractManager
 {
     public const TABLE = 'company';
-    public function selectCompaniesByUser(int $id)
-    {
-        $statement = $this->pdo->prepare("SELECT * FROM company WHERE user_id=:id AND is_recommendating=false");
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetchAll();
-    }
 
     public function updateCompanyAdvancement(array $data)
     {
@@ -22,7 +14,6 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':advancement', $data['advancement'], \PDO::PARAM_INT);
         $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
         $statement->bindValue(':company_id', $data['company-id'], \PDO::PARAM_INT);
-
 
         return $statement->execute();
     }
@@ -45,6 +36,27 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch();
+    }
+
+    public function selectCompaniesByUser(int $id)
+    {
+        $statement = $this->pdo->prepare("
+        SELECT c.id, c.name, c.is_recommendating, a.level, a.name as advancement_name FROM company c
+        JOIN advancement a 
+        ON a.id = c.advancement_id
+        WHERE user_id=:id");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    public function selectAdvancements()
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM advancement");
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 
     public function update(array $posts)

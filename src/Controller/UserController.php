@@ -37,6 +37,7 @@ class UserController extends AbstractController
             'success' => $success
         ]);
     }
+
     public function register(): string
     {
         if (!empty($_SESSION)) {
