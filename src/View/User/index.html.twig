@@ -26,14 +26,12 @@
             <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
         </div>
     </form>
-
-
     <div class="container mb-5">
     <ul class="list-group mt-5">
         {% for company in user_companies  %}
             <li class="list-group-item d-flex justify-content-around align-items-center">
                 <div>
-                    <h5><a href="/entreprise?id={{ company.id }}">{{ company.name }}</a></h5>
+                    <h5><a href="/entreprise?id={{ company.id }}" class="nav-link">{{ company.name }}</a></h5>
                 </div>
                 <form class="d-flex align-items-center" method="post">
 
@@ -75,5 +73,4 @@
         {% endfor %}
     </ul>
     </div>
-
 {% endblock %}

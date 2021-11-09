@@ -18,4 +18,5 @@ return [
     'logout' => ['UserController', 'logout'],
     'ajoutEntreprise' => ['CompanyController', 'addCompany', ['id']],
     'entreprise' => ['CompanyController', 'show', ['id']],
+    'profil' => ['UserController', 'profil', ['id']],
 ];
