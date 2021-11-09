@@ -10,14 +10,18 @@ $routes = require_once __DIR__ . '/../src/routes.php';
 if (!key_exists($route, $routes)) {
     header("HTTP/1.0 404 Not Found");
     echo '404 - Page not found';
-    exit();
 }
 
 // Get the matching route in $routes array
 $matchingRoute = $routes[$route];
-
+if ($matchingRoute[0] === 'DashboardController' && !$_SESSION['user']['is_admin']) {
+    header('HTTP/1.0 403 Forbidden');
+    echo 'Vous n\'avez pas accès à cette page';
+    die();
+}
 // Get the FQCN of controller associated to the matching route
 $controller = 'App\\Controller\\' . $matchingRoute[0];
+
 // Get the method associated to the matching route
 $method = $matchingRoute[1];
 // Get the queryString values configured for the matching route (in $_GET superglobal).
