@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Model\AdvancementManager;
 
-
 class AdvancementController extends AbstractController
 {
     public function index()
@@ -13,7 +12,6 @@ class AdvancementController extends AbstractController
         $advancementManager = new AdvancementManager();
         $companiesAdvancement = $advancementManager->selectAdvancementsById($dataUser['id']);
 
-        return $this->twig->render('User/index.html.twig', ['companies_advancement' => $companiesAdvancement],);
+        return $this->twig->render('User/index.html.twig', ['companies_advancement' => $companiesAdvancement]);
     }
-
 }

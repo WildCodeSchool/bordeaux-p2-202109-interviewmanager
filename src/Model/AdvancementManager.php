@@ -14,6 +14,4 @@ class AdvancementManager extends AbstractManager
 
         return $statement->fetchAll();
     }
-
-
 }
