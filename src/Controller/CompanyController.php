@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\CompanyManager;
+use App\Service\FormValidator;
 
 class CompanyController extends AbstractController
 {
@@ -20,9 +21,9 @@ class CompanyController extends AbstractController
                 $errors[] = 'Le nom de l\'entreprise doit contenir minimum 2 caractères';
             }
             if (isset($_POST['is_recommendating'])) {
-                $_POST['is_recommendating'] = false;
-            } else {
                 $_POST['is_recommendating'] = true;
+            } else {
+                $_POST['is_recommendating'] = false;
             }
             $companyManager = new CompanyManager();
             $company = $companyManager->selectOneByName($_POST);
@@ -38,6 +39,8 @@ class CompanyController extends AbstractController
                 'success' => $success,
             ]);
             header('Location: accueil?' . $queryString);
+        } else {
+            header('Location: accueil');
         }
     }
     public function index(): string
@@ -69,5 +72,22 @@ class CompanyController extends AbstractController
             'advancements' => $advancements,
             'errors' => $errors,
             'success' => $success]);
+}
+
+    public function show(): string
+    {
+        $companyManger = new CompanyManager();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $posts = [];
+            foreach ($_POST as $key => $value) {
+                $posts[$key] = trim($value);
+            }
+            $companyManger->update($posts);
+            header('Location: /accueil');
+        }
+        $company = $companyManger->selectOneById($_GET['id']);
+        return $this->twig->render('Company/show.html.twig', [
+            'company' => $company
+            ]);
     }
 }

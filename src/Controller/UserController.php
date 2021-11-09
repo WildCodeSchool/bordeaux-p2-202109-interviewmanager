@@ -2,11 +2,41 @@
 
 namespace App\Controller;
 
+use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
 
 class UserController extends AbstractController
 {
+    public function index(): string
+    {
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
+        $userId = $_SESSION['user']['id'];
+        $companyManager = new CompanyManager();
+        $userCompanies = $companyManager->selectCompaniesByUser($userId);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_POST['user_id'] = $userId;
+            $companyManager->updateCompanyAdvancement($_POST);
+            header('Location: /accueil');
+        }
+        $errors = [];
+        $success = '';
+        if (!empty($_GET['errors'])) {
+            $errors['error'] = $_GET['errors'];
+        }
+        if (!empty($_GET['success'])) {
+            $success = $_GET['success'];
+        }
+
+        return $this->twig->render('User/index.html.twig', [
+            'user_companies' => $userCompanies,
+            'errors' => $errors,
+            'success' => $success
+        ]);
+    }
 
     public function register(): string
     {

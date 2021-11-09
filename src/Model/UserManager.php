@@ -7,6 +7,7 @@ use App\Model\AbstractManager;
 class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
+
     public function create(array $userData)
     {
         $statement = $this->pdo->prepare('

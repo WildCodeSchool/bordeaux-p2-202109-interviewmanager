@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <form method="post" action="/addEntreprise" class="d-flex justify-content-center p-5 mt-5">
+    <form method="post" action="/ajoutEntreprise" class="d-flex justify-content-center p-5 mt-5">
         <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
             <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
             <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
@@ -31,7 +31,7 @@
         {% for company in user_companies  %}
             <li class="list-group-item d-flex justify-content-around align-items-center">
                 <div>
-                    <h5><a href="/" class="nav-link">{{ company.name }}</a></h5>
+                    <h5><a href="/entreprise?id={{ company.id }}" class="nav-link">{{ company.name }}</a></h5>
                 </div>
                 <form class="d-flex align-items-center" method="post">
 

@@ -6,6 +6,18 @@ class CompanyManager extends AbstractManager
 {
     public const TABLE = 'company';
 
+    public function updateCompanyAdvancement(array $data)
+    {
+        $statement = $this->pdo->prepare(
+            "UPDATE company SET advancement_id=:advancement WHERE user_id=:user_id AND id=:company_id"
+        );
+        $statement->bindValue(':advancement', $data['advancement'], \PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
+        $statement->bindValue(':company_id', $data['company-id'], \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
+
     public function insert(array $data)
     {
         $statement = $this->pdo->prepare('
@@ -25,6 +37,7 @@ class CompanyManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
+
     public function selectCompaniesByUser(int $id)
     {
         $statement = $this->pdo->prepare("
@@ -38,26 +51,24 @@ class CompanyManager extends AbstractManager
         return $statement->fetchAll();
     }
 
-
-
-
-    public function updateCompanyAdvancement(array $data)
-    {
-        $statement = $this->pdo->prepare(
-            "UPDATE company SET advancement_id=:advancement WHERE user_id=:user_id AND id=:company_id"
-        );
-        $statement->bindValue(':advancement', $data['advancement'], \PDO::PARAM_INT);
-        $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
-        $statement->bindValue(':company_id', $data['company-id'], \PDO::PARAM_INT);
-
-
-        return $statement->execute();
-    }
     public function selectAdvancements()
     {
         $statement = $this->pdo->prepare("SELECT * FROM advancement");
         $statement->execute();
 
         return $statement->fetchAll();
+    }
+
+    public function update(array $posts)
+    {
+        $statement = $this->pdo->prepare('
+                UPDATE company 
+                SET description=:description, address=:address, 
+                phone_number=:phone_number, mail=:mail');
+        $statement->bindValue(':description', $posts['description'], \PDO::PARAM_STR);
+        $statement->bindValue(':address', $posts['address'], \PDO::PARAM_STR);
+        $statement->bindValue(':phone_number', $posts['phone_number'], \PDO::PARAM_STR);
+        $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
+        $statement->execute();
     }
 }
