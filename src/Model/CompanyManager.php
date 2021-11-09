@@ -71,4 +71,27 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
         $statement->execute();
     }
+
+    public function allRecommending(): array
+    {
+        $statement = $this->pdo->query('
+            SELECT name, count(name) AS nb_user_recommendating
+            FROM company
+            WHERE company.is_recommendating = true GROUP BY name
+        ');
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function allName(): array
+    {
+        $statement = $this->pdo->query('
+            SELECT c.name, COUNT(u.id) AS nb_user_interessing
+            FROM company AS c
+            JOIN user AS u
+            ON c.user_id=u.id
+            WHERE c.is_recommendating = false
+            GROUP BY name');
+        return $statement->fetchAll();
+    }
 }
