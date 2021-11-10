@@ -16,3 +16,8 @@ body {
 .dropdown-menu[data-bs-popper] {
     left: -7rem;
 }
+.test {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}

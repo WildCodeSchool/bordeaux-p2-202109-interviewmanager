@@ -43,7 +43,7 @@
                             <input type="hidden" name="company-id" value="{{ company.id }}">
                             <select id="disabledSelect" name="advancement" class="form-select">
                                 {% for advancement in advancements %}
-                                    <option value="{{ advancement.id }}">
+                                    <option value="{{ advancement.id }}" {{ company.advancement_name == advancement.name ? 'selected' : '' }}>
                                         {{ advancement.name }}
                                     </option>
                                 {% endfor %}
