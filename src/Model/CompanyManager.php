@@ -62,13 +62,13 @@ class CompanyManager extends AbstractManager
 
     public function countUserForCompanyiesIsRecommendating(string $name): int
     {
-       $statement = $this->pdo->prepare('
+        $statement = $this->pdo->prepare('
                 SELECT COUNT(c.id) AS number
                 FROM company AS c
                 WHERE  c.name =:name AND c.is_recommendating = true
                 ');
-       $statement->bindValue('name', $name, \PDO::PARAM_STR);
-       $statement->execute();
-       return $statement->fetch()['number'];
+        $statement->bindValue('name', $name, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch()['number'];
     }
 }
