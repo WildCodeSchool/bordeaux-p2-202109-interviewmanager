@@ -20,5 +20,6 @@ return [
     'entreprise' => ['CompanyController', 'show', ['id']],
     'profil' => ['UserController', 'profil', ['id']],
     'admin' => ['DashboardController', 'index'],
+    'cgu' => ['CguController', 'cgu'],
 
 ];
