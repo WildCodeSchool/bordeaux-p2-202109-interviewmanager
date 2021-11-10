@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\AdvancementManager;
 use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
@@ -16,7 +17,12 @@ class UserController extends AbstractController
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $userCompanies = $companyManager->selectCompaniesByUser($userId);
-
+        foreach ($userCompanies as $key => $userCompany) {
+            $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
+            $userCompanies[$key]['count_recommendating'] = $countRecommendating;
+        }
+        $advancementManager = new AdvancementManager();
+        $advancements = $advancementManager->selectAll();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['user_id'] = $userId;
             $companyManager->updateCompanyAdvancement($_POST);
@@ -33,8 +39,9 @@ class UserController extends AbstractController
 
         return $this->twig->render('User/index.html.twig', [
             'user_companies' => $userCompanies,
+            'advancements' => $advancements,
             'errors' => $errors,
-            'success' => $success
+            'success' => $success,
         ]);
     }
 
@@ -90,12 +97,23 @@ class UserController extends AbstractController
                 ]);
     }
 
-    public function logout()
+    public function logout(): void
     {
         if (empty($_SESSION)) {
             header('Location: /');
         }
         session_destroy();
         header('Location: /');
+    }
+
+    public function profil(): string
+    {
+        $userId = $_SESSION['user']['id'];
+        $companyManager = new CompanyManager();
+        $recomCompanies = $companyManager->recommendatingCompanies($userId);
+
+        return $this->twig->render('User/pageProfil.html.twig', [
+            'recommendating_companies' => $recomCompanies
+        ]);
     }
 }
