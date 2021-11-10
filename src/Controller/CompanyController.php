@@ -12,6 +12,7 @@ class CompanyController extends AbstractController
         $userId = $_SESSION['user']['id'];
         $errors = [];
         $success = '';
+        $recommendations = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['user_id'] = $userId;
             $_POST['name'] = trim($_POST['name']);
@@ -28,15 +29,19 @@ class CompanyController extends AbstractController
             $companyManager = new CompanyManager();
             $company = $companyManager->selectOneByName($_POST);
             if ($company) {
-                $errors[] = 'L\'entreprise existe déjà';
+                if ($company['name'] === $_POST['name'] && $company['user_id'] === $_SESSION['user']['id']) {
+                    $errors[] = 'L\'entreprise existe déjà';
+                }
             }
             if (empty($errors)) {
-                $companyManager->insert($_POST);
+                $recommendations = $companyManager->companyRecommendatingUsers($_POST['name']);
                 $success = 'Entreprise bien enregistrée';
+                $companyManager->insert($_POST);
             }
             $queryString = http_build_query([
                 'errors' => $errors,
                 'success' => $success,
+                'recommendations' => $recommendations,
             ]);
             header('Location: accueil?' . $queryString);
         } else {

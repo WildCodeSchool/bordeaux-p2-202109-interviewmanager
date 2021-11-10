@@ -15,6 +15,16 @@
                     {{ success }}
                 </div>
             {% endif %}
+            {% if recommendations|length > 0 %}
+                {{ recommendations.full_name.join(' ', ' et ') }}
+                <div class="alert alert-success text-center">
+                    {% for recommendation in recommendations %}
+                        {{ recommendation.full_name }} {{ loop.index == recommendations|length - 1 ? ' et ' : ' ' }}
+                    {% endfor %}
+                    {{ recommendations|length > 1 ? 'ont' : 'a' }} des connaissances dans cette entreprise
+                </div>
+
+            {% endif %}
             <div class="m-2">
                 <label for="company" class="form-label">Entre une entreprise</label>
                 <input type="text" name="name" class="form-control" id="company">
