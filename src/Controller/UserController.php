@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\AdvancementManager;
 use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
@@ -20,6 +21,8 @@ class UserController extends AbstractController
             $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
             $userCompanies[$key]['count_recommendating'] = $countRecommendating;
         }
+        $advancementManager = new AdvancementManager();
+        $advancements = $advancementManager->selectAll();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['user_id'] = $userId;
             $companyManager->updateCompanyAdvancement($_POST);
@@ -36,6 +39,7 @@ class UserController extends AbstractController
 
         return $this->twig->render('User/index.html.twig', [
             'user_companies' => $userCompanies,
+            'advancements' => $advancements,
             'errors' => $errors,
             'success' => $success,
         ]);

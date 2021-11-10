@@ -17,7 +17,6 @@ class CompanyManager extends AbstractManager
 
         return $statement->execute();
     }
-
     public function insert(array $data)
     {
         $statement = $this->pdo->prepare('
@@ -28,7 +27,6 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':is_recommendating', $data['is_recommendating'], \PDO::PARAM_INT);
         $statement->execute();
     }
-
     public function selectOneByName(array $data)
     {
         $statement = $this->pdo->prepare('SELECT name FROM company WHERE name=:name AND user_id=:user_id');
@@ -37,7 +35,6 @@ class CompanyManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
-
     public function selectCompaniesByUser(int $id)
     {
         $statement = $this->pdo->prepare("
@@ -50,7 +47,6 @@ class CompanyManager extends AbstractManager
 
         return $statement->fetchAll();
     }
-
     public function selectAdvancements()
     {
         $statement = $this->pdo->prepare("SELECT * FROM advancement");
@@ -71,8 +67,6 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
         $statement->execute();
     }
-
-
     public function countUserForCompanyiesIsRecommendating(string $name): int
     {
         $statement = $this->pdo->prepare('
@@ -84,7 +78,6 @@ class CompanyManager extends AbstractManager
         $statement->execute();
         return $statement->fetch()['number'];
     }
-      
     public function recommendatingCompanies(int $id)
     {
         $statement = $this->pdo->prepare("SELECT name FROM company WHERE user_id=:id AND is_recommendating=true");
@@ -93,7 +86,7 @@ class CompanyManager extends AbstractManager
 
         return $statement->fetchAll();
     }
-        public function allRecommending(): array
+    public function allRecommending(): array
     {
         $statement = $this->pdo->query('
             SELECT name, count(name) AS nb_user_recommendating
@@ -103,7 +96,6 @@ class CompanyManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
-
     public function allName(): array
     {
         $statement = $this->pdo->query('
