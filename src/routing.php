@@ -10,6 +10,7 @@ $routes = require_once __DIR__ . '/../src/routes.php';
 if (!key_exists($route, $routes)) {
     header("HTTP/1.0 404 Not Found");
     echo '404 - Page not found';
+    exit();
 }
 
 // Get the matching route in $routes array
