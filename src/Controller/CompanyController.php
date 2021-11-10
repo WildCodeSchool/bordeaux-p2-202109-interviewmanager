@@ -43,6 +43,36 @@ class CompanyController extends AbstractController
             header('Location: accueil');
         }
     }
+    public function index(): string
+    {
+        $dataUser = $_SESSION['user'];
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
+        $companyManager = new CompanyManager();
+        $userCompanies = $companyManager->selectCompaniesByUser($dataUser['id']);
+        $advancements = $companyManager->selectAdvancements();
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_POST['user_id'] = $dataUser['id'];
+            $companyManager->updateCompanyAdvancement($_POST);
+            header('Location: /accueil');
+        }
+        $errors = [];
+        $success = '';
+        if (!empty($_GET['errors'])) {
+            $errors['error'] = $_GET['errors'];
+        }
+        if (!empty($_GET['success'])) {
+            $success = $_GET['success'];
+        }
+
+        return $this->twig->render('User/index.html.twig', ['user_companies' => $userCompanies,
+            'advancements' => $advancements,
+            'errors' => $errors,
+            'success' => $success]);
+    }
 
     public function show(): string
     {

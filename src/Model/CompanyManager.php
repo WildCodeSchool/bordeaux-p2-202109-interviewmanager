@@ -5,14 +5,6 @@ namespace App\Model;
 class CompanyManager extends AbstractManager
 {
     public const TABLE = 'company';
-    public function selectCompaniesByUser(int $id)
-    {
-        $statement = $this->pdo->prepare("SELECT * FROM company WHERE user_id=:id AND is_recommendating=false");
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetchAll();
-    }
 
     public function updateCompanyAdvancement(array $data)
     {
@@ -22,7 +14,6 @@ class CompanyManager extends AbstractManager
         $statement->bindValue(':advancement', $data['advancement'], \PDO::PARAM_INT);
         $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
         $statement->bindValue(':company_id', $data['company-id'], \PDO::PARAM_INT);
-
 
         return $statement->execute();
     }
@@ -47,6 +38,27 @@ class CompanyManager extends AbstractManager
         return $statement->fetch();
     }
 
+    public function selectCompaniesByUser(int $id)
+    {
+        $statement = $this->pdo->prepare("
+        SELECT c.id, c.name, c.is_recommendating, a.level, a.name as advancement_name FROM company c
+        JOIN advancement a 
+        ON a.id = c.advancement_id
+        WHERE user_id=:id");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    public function selectAdvancements()
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM advancement");
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
     public function update(array $posts)
     {
         $statement = $this->pdo->prepare('
@@ -65,7 +77,27 @@ class CompanyManager extends AbstractManager
         $statement = $this->pdo->prepare("SELECT name FROM company WHERE user_id=:id AND is_recommendating=true");
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->execute();
+    }
+    public function allRecommending(): array
+    {
+        $statement = $this->pdo->query('
+            SELECT name, count(name) AS nb_user_recommendating
+            FROM company
+            WHERE company.is_recommendating = true GROUP BY name
+        ');
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 
+    public function allName(): array
+    {
+        $statement = $this->pdo->query('
+            SELECT c.name, COUNT(u.id) AS nb_user_interessing
+            FROM company AS c
+            JOIN user AS u
+            ON c.user_id=u.id
+            WHERE c.is_recommendating = false
+            GROUP BY name');
         return $statement->fetchAll();
     }
 }
