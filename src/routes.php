@@ -14,7 +14,7 @@ return [
     'items/show' => ['ItemController', 'show', ['id']],
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
-    'accueil' => ['CompanyController', 'index', ['id']],
+    'accueil' => ['UserController', 'index', ['id']],
     'logout' => ['UserController', 'logout'],
     'ajoutEntreprise' => ['CompanyController', 'addCompany', ['id']],
     'entreprise' => ['CompanyController', 'show', ['id']],
