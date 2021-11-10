@@ -27,7 +27,8 @@
             {% endif %}
             <div class="m-2">
                 <label for="company" class="form-label">Entre une entreprise</label>
-                <input type="text" name="name" class="form-control" id="company">
+                <input type="text" name="name" class="form-control" id="company" data-name="{{ companies|join(',') }}">
+                <ul class="list-group position-absolute" id="autocompletion"></ul>
             </div>
             <div class="m-2">
                 <input type="checkbox" name="is_recommendating" class="form-check-input" id="is_recommendating">
@@ -101,4 +102,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascript %}
+<script src="assets/js/autocomplete.js"></script>
 {% endblock %}

@@ -16,6 +16,12 @@ class UserController extends AbstractController
         }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
+        $allCompanies = $companyManager->selectAll();
+        $nameCompanies = [];
+        foreach ($allCompanies as $company) {
+            $nameCompanies[] = $company['name'];
+        }
+        $companies = array_unique($nameCompanies);
         $userCompanies = $companyManager->selectCompaniesByUser($userId);
         foreach ($userCompanies as $key => $userCompany) {
             $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
@@ -44,6 +50,7 @@ class UserController extends AbstractController
         return $this->twig->render('User/index.html.twig', [
             'user_companies' => $userCompanies,
             'advancements' => $advancements,
+            'companies' => $companies,
             'errors' => $errors,
             'success' => $success,
             'recommendations' => $recommendations,
