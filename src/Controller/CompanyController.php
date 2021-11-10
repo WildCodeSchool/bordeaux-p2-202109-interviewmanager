@@ -64,4 +64,11 @@ class CompanyController extends AbstractController
             'company' => $company
             ]);
     }
+
+    public function delete(int $id): void
+    {
+        $companyManager = new CompanyManager();
+        $companyManager->delete($_GET['id']);
+        header('Location: /profil');
+    }
 }
