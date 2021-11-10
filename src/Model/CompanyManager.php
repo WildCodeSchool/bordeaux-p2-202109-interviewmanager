@@ -72,6 +72,14 @@ class CompanyManager extends AbstractManager
         $statement->execute();
     }
 
+    public function recommendatingCompanies(int $id)
+    {
+        $statement = $this->pdo->prepare("SELECT name FROM company WHERE user_id=:id AND is_recommendating=true");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
     public function allRecommending(): array
     {
         $statement = $this->pdo->query('

@@ -26,7 +26,7 @@
             <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
         </div>
     </form>
-<div class="container mb-5">
+    <div class="container mb-5">
     <ul class="list-group mt-5">
         {% for company in user_companies  %}
             <li class="list-group-item d-flex justify-content-around align-items-center">
@@ -37,7 +37,6 @@
 
 
                         <div class="mb-3">
-
                             <label for="disabledSelect" class="form-label"></label>
                             <input type="hidden" name="company-id" value="{{ company.id }}">
                             <select id="disabledSelect" name="advancement" class="form-select">

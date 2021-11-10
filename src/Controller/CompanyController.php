@@ -72,7 +72,7 @@ class CompanyController extends AbstractController
             'advancements' => $advancements,
             'errors' => $errors,
             'success' => $success]);
-}
+    }
 
     public function show(): string
     {
