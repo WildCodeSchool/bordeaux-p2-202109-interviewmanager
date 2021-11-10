@@ -31,7 +31,7 @@
         {% for company in user_companies  %}
             <li class="list-group-item d-flex justify-content-around align-items-center">
                 <div>
-                    <h5><a href="/entreprise?id={{ company.id }}" class="nav-link">{{ company.name }}</a></h5>
+                    <h5><a href="/entreprise?id={{ company.id }}" class="nav-link test">{{ company.name }}</a></h5>
                 </div>
                 <form class="d-flex align-items-center" method="post">
 
@@ -42,10 +42,10 @@
                             <input type="hidden" name="company-id" value="{{ company.id }}">
                             <select id="disabledSelect" name="advancement" class="form-select">
                                 {% for advancement in advancements %}
-
-                                    <option value="{{ advancement.id }}">
+                                    <option value="{{ advancement.id }}" {{ company.advancement_name == advancement.name ? 'selected' : '' }}
+                                    >
                                         {{ advancement.name }}
-                               </option>
+                                    </option>
                                 {% endfor %}
 
                             </select>
@@ -57,8 +57,9 @@
                 <div class="progress col-2">
                     <div class="progress-bar progress-bar-striped
                     {{
-                    (company.level == advancements | length) ? 'bg-danger' :
-                    (company.level == advancements | length - 1 ) ? 'bg-success'}}"
+                        (company.level == advancements | length) ? 'bg-danger' :
+                        (company.level == advancements | length - 1 ) ? 'bg-success'
+                    }}"
                          role="progressbar" style="width: {{ company.level / (advancements | length - 1)  * 100 }}%"
                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                     </div>
