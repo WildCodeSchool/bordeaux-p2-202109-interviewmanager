@@ -59,9 +59,12 @@ class CompanyController extends AbstractController
             $companyManager->update($posts);
             header('Location: /accueil');
         }
+
         $company = $companyManager->selectOneById($_GET['id']);
+        $userRecom = $companyManager->CompanyRecommendatingUsers($company['name']);
         return $this->twig->render('Company/show.html.twig', [
-            'company' => $company
+            'company' => $company,
+            'users' => $userRecom,
             ]);
     }
 }
