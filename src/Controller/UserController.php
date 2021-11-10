@@ -37,9 +37,10 @@ class UserController extends AbstractController
         return $this->twig->render('User/index.html.twig', [
             'user_companies' => $userCompanies,
             'errors' => $errors,
-            'success' => $success
+            'success' => $success,
         ]);
     }
+
     public function register(): string
     {
         if (!empty($_SESSION)) {
@@ -99,5 +100,16 @@ class UserController extends AbstractController
         }
         session_destroy();
         header('Location: /');
+    }
+
+    public function profil(): string
+    {
+        $userId = $_SESSION['user']['id'];
+        $companyManager = new CompanyManager();
+        $recomCompanies = $companyManager->recommendatingCompanies($userId);
+
+        return $this->twig->render('User/pageProfil.html.twig', [
+            'recommendating_companies' => $recomCompanies
+        ]);
     }
 }

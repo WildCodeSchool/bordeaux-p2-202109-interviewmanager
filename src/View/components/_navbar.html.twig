@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-2 justify-content-between">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="/accueil">Accueil</a>
                 </li>
             </ul>
             <div>
@@ -22,7 +22,7 @@
                     </a>
                     <ul class="dropdown-menu col-2" aria-labelledby="navbarDropdown">
                         {% if session.user %}
-                            <li><a class="dropdown-item" href="#">Mon compte</a></li>
+                            <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
                             <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
                         {% else %}
                             <a class="dropdown-item" href="/">Connectez-vous</a>

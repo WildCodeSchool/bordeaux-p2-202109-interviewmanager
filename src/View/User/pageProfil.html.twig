@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="card mt-3" style="width: 22rem;">
+    <div class="card-header">Les entreprises où j'ai des contacts :</div>
+    <ul class="list-group list-group-flush">
+        {% for company in recommendating_companies %}
+            <li class="list-group-item" style="border-width: inherit">
+                <div>
+                    <h5><a href="/entreprise?id={{ company.id }}" class="nav-link">{{ company.name }}</a></h5>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
