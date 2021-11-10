@@ -65,7 +65,7 @@ class CompanyController extends AbstractController
             ]);
     }
 
-    public function delete(int $id): void
+    public function delete(): void
     {
         $companyManager = new CompanyManager();
         $companyManager->delete($_GET['id']);
