@@ -30,11 +30,15 @@ class UserController extends AbstractController
         }
         $errors = [];
         $success = '';
+        $recommendations = [];
         if (!empty($_GET['errors'])) {
             $errors['error'] = $_GET['errors'];
         }
         if (!empty($_GET['success'])) {
             $success = $_GET['success'];
+        }
+        if (!empty($_GET['recommendations'])) {
+            $recommendations = $_GET['recommendations'];
         }
 
         return $this->twig->render('User/index.html.twig', [
@@ -42,6 +46,7 @@ class UserController extends AbstractController
             'advancements' => $advancements,
             'errors' => $errors,
             'success' => $success,
+            'recommendations' => $recommendations,
         ]);
     }
 

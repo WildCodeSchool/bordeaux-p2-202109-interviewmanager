@@ -29,7 +29,7 @@ class CompanyManager extends AbstractManager
     }
     public function selectOneByName(array $data)
     {
-        $statement = $this->pdo->prepare('SELECT name FROM company WHERE name=:name AND user_id=:user_id');
+        $statement = $this->pdo->prepare('SELECT name, user_id FROM company WHERE name=:name AND user_id=:user_id');
         $statement->bindValue(':name', $data['name'], \PDO::PARAM_STR);
         $statement->bindValue(':user_id', $data['user_id'], \PDO::PARAM_INT);
         $statement->execute();
@@ -105,6 +105,19 @@ class CompanyManager extends AbstractManager
             ON c.user_id=u.id
             WHERE c.is_recommendating = false
             GROUP BY name');
+        return $statement->fetchAll();
+    }
+
+    public function companyRecommendatingUsers(string $name): array
+    {
+        $statement = $this->pdo->prepare("
+            SELECT CONCAT(u.firstname, ' ', u.lastname) as full_name
+            FROM company AS c
+            JOIN user AS u
+            WHERE c.name=:name AND c.is_recommendating = true AND u.id=c.user_id");
+        $statement->bindValue(':name', $name, \PDO::PARAM_STR);
+        $statement->execute();
+
         return $statement->fetchAll();
     }
 }
