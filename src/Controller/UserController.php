@@ -16,7 +16,10 @@ class UserController extends AbstractController
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $userCompanies = $companyManager->selectCompaniesByUser($userId);
-
+        foreach ($userCompanies as $key => $userCompany) {
+            $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
+            $userCompanies[$key]['count_recommendating'] = $countRecommendating;
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['user_id'] = $userId;
             $companyManager->updateCompanyAdvancement($_POST);
@@ -90,7 +93,7 @@ class UserController extends AbstractController
                 ]);
     }
 
-    public function logout()
+    public function logout(): void
     {
         if (empty($_SESSION)) {
             header('Location: /');

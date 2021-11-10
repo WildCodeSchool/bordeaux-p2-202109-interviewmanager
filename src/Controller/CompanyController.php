@@ -7,7 +7,7 @@ use App\Service\FormValidator;
 
 class CompanyController extends AbstractController
 {
-    public function addCompany()
+    public function addCompany(): void
     {
         $userId = $_SESSION['user']['id'];
         $errors = [];
@@ -76,16 +76,16 @@ class CompanyController extends AbstractController
 
     public function show(): string
     {
-        $companyManger = new CompanyManager();
+        $companyManager = new CompanyManager();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $posts = [];
             foreach ($_POST as $key => $value) {
                 $posts[$key] = trim($value);
             }
-            $companyManger->update($posts);
+            $companyManager->update($posts);
             header('Location: /accueil');
         }
-        $company = $companyManger->selectOneById($_GET['id']);
+        $company = $companyManager->selectOneById($_GET['id']);
         return $this->twig->render('Company/show.html.twig', [
             'company' => $company
             ]);
