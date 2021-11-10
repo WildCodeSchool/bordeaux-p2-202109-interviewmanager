@@ -21,5 +21,6 @@ return [
     'profil' => ['UserController', 'profil', ['id']],
     'admin' => ['DashboardController', 'index'],
     'cgu' => ['CguController', 'cgu'],
+    'supprimer' => ['CompanyController', 'delete', ['id']],
 
 ];
