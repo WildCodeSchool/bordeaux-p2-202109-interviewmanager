@@ -2,6 +2,7 @@
 :root {
     --primary: #E55855;
     --secondary: #EDEDE8;
+    --third: #143a70;
 }
 
 body {
@@ -20,4 +21,8 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 200px;
+}
+
+.no-recommendating {
+    color: var(--third);
 }
