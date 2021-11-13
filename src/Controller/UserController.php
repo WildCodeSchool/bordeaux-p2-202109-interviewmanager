@@ -116,9 +116,13 @@ class UserController extends AbstractController
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $recomCompanies = $companyManager->recommendatingCompanies($userId);
+        $recomCompaniesCount = $companyManager->companiesRecommendatingCount($userId);
+        $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
 
         return $this->twig->render('User/pageProfil.html.twig', [
-            'recommendating_companies' => $recomCompanies
+            'recommendating_companies'       => $recomCompanies,
+            'recommendating_companies_count' => $recomCompaniesCount,
+            'interested_companies_count'     => $interestedCompaniesCount
         ]);
     }
 }
