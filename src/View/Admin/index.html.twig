@@ -17,24 +17,30 @@
             {% endif %}
             <div class="m-2">
                 <label for="company" class="form-label">Entre une entreprise</label>
-                <input type="text" name="name" class="form-control" id="company">
+                <input type="text" name="name" class="form-control" id="company" data-name="{{ companies|join(',') }}">
+                <ul class="list-group position-absolute" id="autocompletion"></ul>
             </div>
             <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
         </div>
     </form>
-    <div class="container d-flex justify-content-between mb-5">
-        <div class="card col-5">
+    <div class="container" id="chart">
+        <canvas id="myChart" width="200" height="200" data-name="{{ name_advancements|join(',') }}" data-stat="{{ stats|join(',') }}"></canvas>
+    </div>
+    <div class="container d-flex flex-column flex-md-row justify-content-between my-5">
+        <div class="card col-12 col-md-5 mb-5 mb-sm-0">
             <div class="card-body">
+                <h2 class="card-title text-center border-bottom fs-1 fw-bolder text-primary">{{ recommendating_companies|length }}</h2>
                 <h5 class="text-center">Liste des entreprises recommandées</h5>
                 <ul class="list-group">
-                    {% for company in companies_recommendating %}
+                    {% for company in recommendating_companies %}
                         <li class="list-group-item">{{ company.name }} est recommandée par {{ company.nb_user_recommendating }} personnes</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
-        <div class="card col-5">
+        <div class="card col-12 col-md-5">
             <div class="card-body">
+                <h2 class="card-title text-center border-bottom fs-1 fw-bolder text-primary">{{ all_interesting|length }}</h2>
                 <h5 class="text-center">Liste des entreprises en sourcing</h5>
                 <ul class="list-group">
                     {% for company in all_interesting %}
@@ -44,4 +50,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="assets/js/chart.js"></script>
+<script src="assets/js/autocomplete.js"></script>
 {% endblock %}
