@@ -26,3 +26,13 @@ body {
 .no-recommendating {
     color: var(--third);
 }
+
+#autocompletion {
+    z-index: 1;
+}
+
+.autocomplete:hover {
+    transition: all 0.3s;
+    background-color: var(--primary);
+    color: var(--secondary);
+}
