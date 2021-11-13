@@ -51,12 +51,14 @@ class CompanyController extends AbstractController
     public function show(): string
     {
         $companyManager = new CompanyManager();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $posts = [];
             foreach ($_POST as $key => $value) {
                 $posts[$key] = trim($value);
             }
-            $companyManager->update($posts);
+
+            $companyManager->update($posts, $_GET['id']);
             header('Location: /accueil');
         }
 
