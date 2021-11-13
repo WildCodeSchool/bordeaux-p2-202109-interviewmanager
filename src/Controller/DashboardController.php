@@ -45,12 +45,19 @@ class DashboardController extends AbstractController
             $stats[] = $companyManager->countCompanyFromAdvancement($advancement['id'])['nb_status'];
             $nameAdvancements[] = $advancement['name'];
         }
-        $recommendatingCompanies = $companyManager->allRecommending();
+        $allCompanies = $companyManager->selectAll();
+        $nameCompanies = [];
+        foreach ($allCompanies as $company) {
+            $nameCompanies[] = $company['name'];
+        }
+        $companies = array_unique($nameCompanies);
+        $recomCompanies = $companyManager->allRecommending();
         $allInteresting = $companyManager->allName();
         return $this->twig->render('Admin/index.html.twig', [
-            'recommendating_companies' => $recommendatingCompanies,
+            'recommendating_companies' => $recomCompanies,
             'all_interesting' => $allInteresting,
             'stats' => $stats,
+            'companies' => $companies,
             'name_advancements' => $nameAdvancements,
             'errors' => $errors,
             'success' => $success,

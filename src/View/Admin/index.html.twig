@@ -17,7 +17,8 @@
             {% endif %}
             <div class="m-2">
                 <label for="company" class="form-label">Entre une entreprise</label>
-                <input type="text" name="name" class="form-control" id="company">
+                <input type="text" name="name" class="form-control" id="company" data-name="{{ companies|join(',') }}">
+                <ul class="list-group position-absolute" id="autocompletion"></ul>
             </div>
             <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
         </div>
@@ -53,4 +54,5 @@
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 <script src="assets/js/chart.js"></script>
+<script src="assets/js/autocomplete.js"></script>
 {% endblock %}
