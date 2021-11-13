@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\AdvancementManager;
 use App\Model\CompanyManager;
 
 class DashboardController extends AbstractController
@@ -10,6 +11,7 @@ class DashboardController extends AbstractController
     {
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
+        $advancementManager = new AdvancementManager();
         $errors = [];
         $success = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,11 +38,20 @@ class DashboardController extends AbstractController
         if (!empty($_GET['success'])) {
             $success = $_GET['success'];
         }
+        $advancements = $advancementManager->selectAll();
+        $nameAdvancements = [];
+        $stats = [];
+        foreach ($advancements as $advancement) {
+            $stats[] = $companyManager->countCompanyFromAdvancement($advancement['id'])['nb_status'];
+            $nameAdvancements[] = $advancement['name'];
+        }
         $recommendatingCompanies = $companyManager->allRecommending();
         $allInteresting = $companyManager->allName();
         return $this->twig->render('Admin/index.html.twig', [
-            'companies_recommendating' => $recommendatingCompanies,
+            'recommendating_companies' => $recommendatingCompanies,
             'all_interesting' => $allInteresting,
+            'stats' => $stats,
+            'name_advancements' => $nameAdvancements,
             'errors' => $errors,
             'success' => $success,
         ]);
