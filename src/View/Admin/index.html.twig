@@ -2,46 +2,52 @@
 
 {% block content %}
     <form method="post" class="d-flex justify-content-center p-5 mt-5">
-        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
-            <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
-            <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
-            {% if errors is not empty %}
-                <div class="alert alert-danger text-center">
-                    {{ errors.erreur | first }}
+            <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+                <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
+                <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
+                {% if errors is not empty %}
+                    <div class="alert alert-danger text-center">
+                        {{ errors.erreur | first }}
+                    </div>
+                {% endif %}
+                {% if success|length > 0 %}
+                    <div class="alert alert-success text-center">
+                        {{ success }}
+                    </div>
+                {% endif %}
+                <div class="m-2">
+                    <label for="company" class="form-label">Entre une entreprise</label>
+                    <input type="text" name="name" class="form-control" id="company">
                 </div>
-            {% endif %}
-            {% if success|length > 0 %}
-                <div class="alert alert-success text-center">
-                    {{ success }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4">Ajouter</button>
                 </div>
-            {% endif %}
-            <div class="m-2">
-                <label for="company" class="form-label">Entre une entreprise</label>
-                <input type="text" name="name" class="form-control" id="company">
             </div>
-            <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
-        </div>
-    </form>
-    <div class="container d-flex justify-content-between mb-5">
-        <div class="card col-5">
-            <div class="card-body">
-                <h5 class="text-center">Liste des entreprises recommandées</h5>
-                <ul class="list-group">
-                    {% for company in companies_recommendating %}
-                        <li class="list-group-item">{{ company.name }} est recommandée par {{ company.nb_user_recommendating }} personnes</li>
-                    {% endfor %}
-                </ul>
+        </form>
+        <div class="container d-flex justify-content-between mb-5">
+            <div class="card col-5">
+                <div class="card-body">
+                    <h5 class="text-center">Liste des entreprises recommandées</h5>
+                    <ul class="list-group">
+                        {% for company in companies_recommendating %}
+                            <li class="list-group-item">{{ company.name }} est recommandée
+                                par {{ company.nb_user_recommendating }} personnes
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card col-5">
+                <div class="card-body">
+                    <h5 class="text-center">Liste des entreprises en sourcing</h5>
+                    <ul class="list-group">
+                        {% for company in all_interesting %}
+                            <li class="list-group-item">{{ company.name }} est suivie
+                                par {{ company.nb_user_interessing }} personnes
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="card col-5">
-            <div class="card-body">
-                <h5 class="text-center">Liste des entreprises en sourcing</h5>
-                <ul class="list-group">
-                    {% for company in all_interesting %}
-                        <li class="list-group-item">{{ company.name }} est suivie par {{ company.nb_user_interessing }} personnes</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+<div id="background-image-profil">
 <div class="card m-4" style="width: 22rem;">
     <div class="card-header">Les entreprises où j'ai des contacts :</div>
     <form method="post">
@@ -17,5 +18,6 @@
         {% endfor %}
     </ul>
     </form>
+</div>
 </div>
 {% endblock %}

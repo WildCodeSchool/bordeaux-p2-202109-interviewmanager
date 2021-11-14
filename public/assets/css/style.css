@@ -8,21 +8,47 @@
 body {
     font-family: 'Oswald', sans-serif;
     background-color: var(--secondary);
+    /*background : url('https://images.pexels.com/photos/3184397/pexels-photo-3184397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat center center;*/
 }
-
+#logo {
+    width: 6vw;
+}
+#sticker {
+    width: 7vw;
+}
+.github-avatar{
+    height: 70px;
+}
+#avatar{
+    border-radius: 50%;
+}
 #boostrap-override .nav-link {
     color: var(--primary);
 }
-
 .dropdown-menu[data-bs-popper] {
     left: -7rem;
+}
+#form-view {
+    box-shadow: 8px 8px 10px rgba(17, 17, 17, 0.5);
 }
 .longName {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 200px;
 }
-
 .no-recommendating {
     color: var(--third);
 }
+#background-image-index {
+    background : url('https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?cs=srgb&dl=pexels-tatiana-fet-1105766.jpg&fm=jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.9;
+}#background-image-profil {
+    background : url('https://images.pexels.com/photos/3184397/pexels-photo-3184397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat center center;
+    background-size: cover;
+    opacity: 0.7;
+}
+
+/*background: url("https://images.pexels.com/photos/3184397/pexels-photo-3184397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") no-repeat center center;
+https://images.pexels.com/photos/633488/pexels-photo-633488.jpeg?cs=srgb&dl=pexels-neosiam-633488.jpg&fm=jpg
+ */

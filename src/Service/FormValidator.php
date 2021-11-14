@@ -13,11 +13,16 @@ class FormValidator
         if (empty($string)) {
             $this->errors[] = 'Le champs ' . $name . ' est requis';
         }
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $string)) {
+        /*if (!preg_match("/^[a-zA-Z-' ]*$/", $string)) {
             $this->errors[] = 'Seuls des lettres et espaces sont autorisées.';
+        }*/
+    }
+    public function checkProfilGithub(string $profilGithub): void
+    {
+        if (empty($profilGithub)) {
+            $this->errors[] = 'Le champs ' . $profilGithub . ' est requis';
         }
     }
-
     public function checkMail(string $mail, $isMailExist): void
     {
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
@@ -27,7 +32,6 @@ class FormValidator
             $this->errors[] = 'Email déjà existant';
         }
     }
-
     public function checkPassword(string $pass): void
     {
         if (empty($pass)) {
