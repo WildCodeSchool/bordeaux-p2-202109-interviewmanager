@@ -8,6 +8,13 @@
 body {
     font-family: 'Oswald', sans-serif;
     background-color: var(--secondary);
+    background: url("../images/trianglify-1.png") no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.btn {
+    background-color: #E55855;
+    color: #EDEDE8;
 }
 
 #boostrap-override .nav-link {
