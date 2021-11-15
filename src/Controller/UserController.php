@@ -132,4 +132,17 @@ class UserController extends AbstractController
             'interested_companies_count'     => $interestedCompaniesCount
         ]);
     }
+
+    public function updateAdvancement()
+    {
+        $json = json_decode(file_get_contents('php://input'));
+        $datas = [
+            'user_id' => $json->userId,
+            'company-id' => $json->companyId,
+            'advancement' => $json->advancement,
+        ];
+        $companyManager = new CompanyManager();
+        $companyManager->updateCompanyAdvancement($datas);
+        return json_encode('ok');
+    }
 }
