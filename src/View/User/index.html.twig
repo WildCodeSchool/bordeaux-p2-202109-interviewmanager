@@ -2,7 +2,7 @@
 
 {% block content %}
     <form method="post" action="/ajoutEntreprise" class="d-flex justify-content-center p-5 mt-5">
-        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+        <div class="formadd border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
             <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
             <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
             {% if errors is not empty %}
@@ -37,7 +37,7 @@
         </div>
     </form>
     <div class="container mb-5">
-        <ul class="list-group mt-5">
+        <ul class="formadd list-group mt-5">
             {% for company in user_companies  %}
                 {% if company.is_recommendating == false %}
                     <li class="list-group-item d-flex justify-content-around align-items-center flex-column flex-md-row">
