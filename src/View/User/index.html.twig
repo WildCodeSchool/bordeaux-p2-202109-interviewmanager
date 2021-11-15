@@ -1,5 +1,4 @@
 {% extends 'layout.html.twig' %}
-
 {% block content %}
     <form method="post" action="/ajoutEntreprise" class="d-flex justify-content-center p-5 mt-5">
         <div class="formadd border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
@@ -50,20 +49,18 @@
                             </h5>
                         </div>
                         <form class="d-flex align-items-center col-8 col-md-3 justify-content-evenly justify-content-md-center" method="post">
-                            <div class="mb-3">
+                            <div class="mb-3 col-6">
                                 <label for="disabledSelect" class="form-label col-md-4 col-md-offset-4"></label>
                                 <input type="hidden" name="company-id" value="{{ company.id }}">
-                                <select id="disabledSelect" name="advancement" class="form-select">
+                                <select id="disabledSelect" name="advancement" class="form-select" data-id="{{ company.id }}" data-user="{{ session.user.id }}">
                                     {% for advancement in advancements %}
                                         <option value="{{ advancement.id }}" {{ company.advancement_name == advancement.name ? 'selected' : '' }}>
                                             {{ advancement.name }}
                                         </option>
-                                    {% endfor %}
+                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="mt-2">
-                                <button type="submit" class="btn">Modifier</button>
-                            </div>
+                            <div class="ms-4 text-success checked col-2"></div>
                         </form>
                         <div class="progress col-8 col-md-2">
                             <div class="progress-bar progress-bar-striped {{
@@ -73,7 +70,7 @@
                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
-                        <div class="nav-link col-8 col-md-3 text-center">
+                        <div class="nav-link col-8 col-md-2 text-center">
                             <i class="fas fa-hands-helping fa-2x  {{ (company.count_recommendating == 0) ? 'no-recommendating' : ''}}"></i>
                             <span class="badge bg-primary ms-2">
                                 {{ company.count_recommendating }}
@@ -84,25 +81,8 @@
             {% endfor %}
         </ul>
     </div>
-    {# modal #}
-    <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 {% block javascript %}
 <script src="assets/js/autocomplete.js"></script>
+<script src="assets/js/request.js"></script>
 {% endblock %}
