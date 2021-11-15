@@ -36,7 +36,7 @@ const myChart = new Chart(ctx, {
         responsive: true,
         scales: {
             y: {
-                beginAtZero: true
+                display: false,
             }
         }
     }
