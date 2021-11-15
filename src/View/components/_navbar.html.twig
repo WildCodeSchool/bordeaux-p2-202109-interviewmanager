@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img src="/assets/images/Idealjob.png" class="img-fluid rounded" id="logo" alt="logo">
@@ -10,14 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-2 justify-content-between">
                 <li class="nav-item">
-                    <a class="nav-link active fs-5" aria-current="page" href="/accueil">Accueil</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-3 justify-content-between">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">
-                        <img src="/assets/images/stickeridealjob.png" class="img-fluid rounded" id="sticker" alt="sticker">
-                    </a>
+                    <a class="nav-link active fs-4" aria-current="page" href="/accueil">Accueil</a>
                 </li>
             </ul>
             <div class="fs-5">
@@ -36,9 +29,10 @@
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
-                    <ul class="dropdown-menu col-2 fs-5" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu col-2 fs-4" aria-labelledby="navbarDropdown">
                         {% if session.user %}
                             <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
+                            <li><a class="dropdown-item" href="/admin">Administration</a></li>
                             <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
                         {% else %}
                             <a class="dropdown-item" href="/">Connectez-vous</a>
