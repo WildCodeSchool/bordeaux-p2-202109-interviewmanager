@@ -16,5 +16,11 @@ return [
     'items/delete' => ['ItemController', 'delete',],
     'accueil' => ['UserController', 'index', ['id']],
     'logout' => ['UserController', 'logout'],
-    'addEntreprise' => ['UserController', 'addCompany', ['id']],
+    'ajoutEntreprise' => ['CompanyController', 'addCompany', ['id']],
+    'entreprise' => ['CompanyController', 'show', ['id']],
+    'profil' => ['UserController', 'profil', ['id']],
+    'admin' => ['DashboardController', 'index'],
+    'cgu' => ['CguController', 'cgu'],
+    'supprimer' => ['CompanyController', 'delete', ['id']],
+
 ];

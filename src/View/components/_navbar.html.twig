@@ -7,17 +7,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-2 justify-content-between">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="/accueil">Accueil</a>
                 </li>
             </ul>
+            <div>
+                {% if (session.user) %}
+                    {{ session.user.firstname }}
+                {% endif %}
+            </div>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                         <i class="fas fa-user"></i>
                     </a>
                     <ul class="dropdown-menu col-2" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Mon compte</a></li>
-                        <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
+                        {% if session.user %}
+                            <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
+                            <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
+                        {% else %}
+                            <a class="dropdown-item" href="/">Connectez-vous</a>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>

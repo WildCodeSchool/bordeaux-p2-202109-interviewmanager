@@ -2,6 +2,7 @@
 :root {
     --primary: #E55855;
     --secondary: #EDEDE8;
+    --third: #143a70;
 }
 
 body {
@@ -15,4 +16,32 @@ body {
 
 .dropdown-menu[data-bs-popper] {
     left: -7rem;
+}
+
+.longName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}
+
+.no-recommendating {
+    color: var(--third);
+}
+
+#autocompletion {
+    z-index: 1;
+}
+
+.autocomplete:hover {
+    transition: all 0.3s;
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+#boostrap-override .text-primary {
+    color: var(--primary) !important;
+}
+
+#chart {
+    max-width: 700px;
 }
