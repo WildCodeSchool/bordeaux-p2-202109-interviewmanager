@@ -17,7 +17,7 @@
                             <div class="mb-3 col-6">
                                 <label for="disabledSelect" class="form-label col-md-4 col-md-offset-4"></label>
                                 <input type="hidden" name="company-id" value="{{ company.id }}">
-                                <select id="disabledSelect" name="advancement" class="form-select" data-id="{{ company.id }}" data-user="{{ session.user.id }}">
+                                <select id="disabledSelect" name="advancement" class="form-select company-level" data-id="{{ company.id }}" data-user="{{ session.user.id }}">
                                     {% for advancement in advancements %}
                                         <option value="{{ advancement.id }}" {{ company.advancement_name == advancement.name ? 'selected' : '' }}>
                                             {{ advancement.name }}

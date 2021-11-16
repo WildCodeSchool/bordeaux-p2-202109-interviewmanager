@@ -56,6 +56,7 @@ class UserController extends AbstractController
             'recommendations' => $recommendations,
         ]);
     }
+
     public function register(): string
     {
         if (!empty($_SESSION)) {
@@ -84,6 +85,7 @@ class UserController extends AbstractController
         }
         return $this->twig->render('User/formRegister.html.twig', ['errors' => $errors]);
     }
+
     public function connect(): string
     {
         if (!empty($_SESSION)) {
@@ -105,9 +107,10 @@ class UserController extends AbstractController
             }
         }
         return $this->twig->render('User/formConnect.html.twig', [
-                'error' => $error,
-                ]);
+            'error' => $error,
+        ]);
     }
+
     public function profil(): string
     {
         $userId = $_SESSION['user']['id'];
@@ -117,12 +120,12 @@ class UserController extends AbstractController
         $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
 
         return $this->twig->render('User/pageProfil.html.twig', [
-            'recommendating_companies'       => $recomCompanies,
+            'recommendating_companies' => $recomCompanies,
             'recommendating_companies_count' => $recomCompaniesCount,
-            'interested_companies_count'     => $interestedCompaniesCount
+            'interested_companies_count' => $interestedCompaniesCount
         ]);
     }
-    
+
     public function updateAdvancement()
     {
         $json = json_decode(file_get_contents('php://input'));
@@ -135,11 +138,13 @@ class UserController extends AbstractController
         $companyManager->updateCompanyAdvancement($datas);
         return json_encode('ok');
     }
-  public function logout(): void
+
+    public function logout(): void
     {
         if (empty($_SESSION)) {
             header('Location: /');
         }
         session_destroy();
         header('Location: /');
+    }
 }
