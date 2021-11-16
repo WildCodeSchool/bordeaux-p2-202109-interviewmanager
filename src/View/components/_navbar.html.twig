@@ -23,6 +23,9 @@
                     <ul class="dropdown-menu col-2" aria-labelledby="navbarDropdown">
                         {% if session.user %}
                             <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
+                            {% if session.user.is_admin %}
+                                <li><a href="/admin" class="dropdown-item">Administration</a></li>
+                            {% endif %}
                             <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
                         {% else %}
                             <a class="dropdown-item" href="/">Connectez-vous</a>
