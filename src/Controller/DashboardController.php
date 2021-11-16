@@ -9,6 +9,9 @@ class DashboardController extends AbstractController
 {
     public function index(): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $advancementManager = new AdvancementManager();
