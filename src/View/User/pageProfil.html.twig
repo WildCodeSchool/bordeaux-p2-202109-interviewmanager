@@ -7,20 +7,16 @@
             <div class="card-header">
                 Les entreprises où j'ai des contacts :
             </div>
-            <form method="post">
                 <ul class="list-group list-group-flush">
                     {% for company in recommendating_companies %}
                         <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
                             <div class="d-flex align-items-center">
                                 <h5>{{ company.name }}</h5>
                             </div>
-                            <div>
-                                <div class="text-center"><button type="submit" class="btn btn-outline-danger btn-sm p-0"><a href="/supprimer?id={{ company.id }}" class="nav-link"><i class="far fa-trash-alt"></i></a></button></div>
-                            </div>
+                            {% include 'components/_trash.html.twig' %}
                         </li>
                     {% endfor %}
                 </ul>
-            </form>
         </div>
         <div class="card m-4 mx-auto col-9">
             <div class="card-header">
@@ -51,12 +47,10 @@
         <canvas id="myChart" width="200" height="200" data-name="{{ name_advancements | join(',') }}" data-stat="{{ datas | join(',') }}" ></canvas>
     </div>
 </div>
-{% endblock %}
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 <script src="assets/js/chart.js"></script>
 {% endblock %}
-=======
 <div id="background-image-profil">
 <div class="card m-4 pt-5" style="width: 22rem;">
     <div class="card-header">Les entreprises où j'ai des contacts :</div>
