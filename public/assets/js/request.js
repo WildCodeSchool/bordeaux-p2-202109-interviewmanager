@@ -1,4 +1,4 @@
-const select = document.getElementsByTagName('select');
+const select = document.getElementsByClassName('company-level');
 const progressBars = document.getElementsByClassName('progress-bar');
 const checked = document.getElementsByClassName('checked');
 for (let i = 0; i < select.length; i++) {
