@@ -22,12 +22,11 @@ class UserController extends AbstractController
             $nameCompanies[] = $company['name'];
         }
         $companies = array_unique($nameCompanies);
-            if (isset($_GET['advancement']) && !empty($_GET['advancement'])) {
-                $userCompanies = $companyManager->selectCompaniesByLevel($userId, $_GET['advancement']);
-            }
-            else {
-                $userCompanies = $companyManager->selectCompaniesByUserOrderDESC($userId);
-            }
+        if (isset($_GET['advancement']) && !empty($_GET['advancement'])) {
+            $userCompanies = $companyManager->selectCompaniesByLevel($userId, $_GET['advancement']);
+        } else {
+            $userCompanies = $companyManager->selectCompaniesByUserOrderDESC($userId);
+        }
 
 
         foreach ($userCompanies as $key => $userCompany) {
