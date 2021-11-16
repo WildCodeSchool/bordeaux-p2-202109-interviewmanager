@@ -152,4 +152,17 @@ class CompanyManager extends AbstractManager
 
         return $statement->fetch();
     }
+    public function countCompanyFromAdvancementByUser(int $advancementId, int $userId): array
+    {
+        $statement = $this->pdo->prepare('
+            SELECT count(company.advancement_id) as nb_status 
+            FROM company 
+            WHERE company.advancement_id=:advancement_id
+            AND company.user_id=:user_id');
+        $statement->bindValue(':advancement_id', $advancementId, \PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $userId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }

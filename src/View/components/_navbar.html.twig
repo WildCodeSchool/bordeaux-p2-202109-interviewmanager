@@ -15,7 +15,7 @@
             </ul>
             <div class="fs-5">
                 {% if (session.user.profil_github) %}
-                    <img class="github-avatar"
+                    <img class="github-avatar m-2"
                          src="https://avatars.githubusercontent.com/{{ session.user.profil_github }}" alt="avatar"
                          id="avatar">
                     {{ session.user.firstname }}
@@ -32,7 +32,6 @@
                     <ul class="dropdown-menu col-2 fs-4" aria-labelledby="navbarDropdown">
                         {% if session.user %}
                             <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
-                            <li><a class="dropdown-item" href="/admin">Administration</a></li>
                             {% if session.user.is_admin %}
                                 <li><a href="/admin" class="dropdown-item">Administration</a></li>
                             {% endif %}

@@ -1,45 +1,58 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-<div id="background-image-profil">
-<div class="card m-4" style="width: 22rem;">
-    <div class="card-header">Les entreprises où j'ai des contacts :</div>
-    <form method="post">
-    <ul class="list-group list-group-flush">
-        {% for company in recommendating_companies %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                <div class="d-flex align-items-center">
-                    <h5>{{ company.name }}</h5>
-                </div>
-                <div>
-                    <div class="text-center"><button type="submit" class="btn btn-outline-danger btn-sm p-0"><a href="/supprimer?id={{ company.id }}" class="nav-link"><i class="far fa-trash-alt"></i></a></button></div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    </form>
-</div>
-</div>
-    <div class="card m-4" style="width: 22rem;">
-        <div class="card-header">Nombre d'entreprises que je peux recommander: </div>
-        <ul class="list-group list-group-flush">
-            {% for countRecommendating in recommendating_companies_count %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                {{ countRecommendating }}
-            </li>
-        </ul>
-                </div>
-                <div class="card m-4" style="width: 22rem;">
-                <div class="card-header">Nombre d'entreprises par lesquelles je suis intéressé: </div>
-
+<div class="d-flex mt-5 flex-column flex-md-row justify-content-center justify-content-sm-around align-items-center">
+    <div class="col-12 col-md-5 ">
+        <div class="card m-4 mx-auto col-9">
+            <div class="card-header">
+                Les entreprises où j'ai des contacts :
+            </div>
+            <form method="post">
                 <ul class="list-group list-group-flush">
-            {% endfor %}
-            {% for countInterested in interested_companies_count %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                    {{ countInterested }}
-            </li>
-
-            {% endfor %}
-        </ul>
+                    {% for company in recommendating_companies %}
+                        <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                            <div class="d-flex align-items-center">
+                                <h5>{{ company.name }}</h5>
+                            </div>
+                            <div>
+                                <div class="text-center"><button type="submit" class="btn btn-outline-danger btn-sm p-0"><a href="/supprimer?id={{ company.id }}" class="nav-link"><i class="far fa-trash-alt"></i></a></button></div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+        <div class="card m-4 mx-auto col-9">
+            <div class="card-header">
+                Nombre d'entreprises que je peux recommander:
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for countRecommendating in recommendating_companies_count %}
+                    <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                        {{ countRecommendating }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card m-4 mx-auto col-9">
+            <div class="card-header">
+                Nombre d'entreprises par lesquelles je suis intéressé:
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for countInterested in interested_companies_count %}
+                    <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                            {{ countInterested }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
+    <div class="col-10 col-md-5" id="chart">
+        <canvas id="myChart" width="200" height="200" data-name="{{ name_advancements | join(',') }}" data-stat="{{ datas | join(',') }}" ></canvas>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="assets/js/chart.js"></script>
 {% endblock %}
