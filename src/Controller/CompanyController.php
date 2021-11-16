@@ -74,6 +74,6 @@ class CompanyController extends AbstractController
     {
         $companyManager = new CompanyManager();
         $companyManager->delete($_GET['id']);
-        header('Location: /profil');
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
