@@ -8,9 +8,9 @@
             <div class="mb-3">
                 <label for="disabledSelect" class="form-label col-md-4 col-md-offset-4"></label>
                 <select id="disabledSelect" name="advancement" class="form-select">
-                    <option value="">Tous</option>
+                    <option value="" >tous</option>
                       {% for advancement in advancements %}
-                        <option value="{{ advancement.name }}">
+                        <option value="{{ advancement.name }}" {{ advancement.name == test ? "selected":"" }}>
                             {{ advancement.name }}
                         </option>
                     {% endfor %}

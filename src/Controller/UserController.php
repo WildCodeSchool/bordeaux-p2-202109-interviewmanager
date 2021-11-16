@@ -22,8 +22,12 @@ class UserController extends AbstractController
             $nameCompanies[] = $company['name'];
         }
         $companies = array_unique($nameCompanies);
+
+        $selectedValue = '';
         if (isset($_GET['advancement']) && !empty($_GET['advancement'])) {
             $userCompanies = $companyManager->selectCompaniesByLevel($userId, $_GET['advancement']);
+            $selectedValue = $_GET['advancement'];
+
         } else {
             $userCompanies = $companyManager->selectCompaniesByUserOrderDESC($userId);
         }
@@ -60,6 +64,7 @@ class UserController extends AbstractController
             'errors' => $errors,
             'success' => $success,
             'recommendations' => $recommendations,
+            'test' => $selectedValue,
         ]);
     }
 
