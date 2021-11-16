@@ -22,7 +22,7 @@ const myChart = new Chart(ctx, {
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)',
                 'rgba(64,255,109,1)',
-                'rgba(190,60,157,1)',
+                'rgb(0,0,0)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -32,7 +32,7 @@ const myChart = new Chart(ctx, {
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)',
                 'rgba(64,255,109,1)',
-                'rgba(190,60,157,1)',
+                'rgb(0,0,0)',
             ],
             borderWidth: 1
         }]

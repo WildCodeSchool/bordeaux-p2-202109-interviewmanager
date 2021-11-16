@@ -32,7 +32,6 @@
                     <ul class="dropdown-menu col-2 fs-4" aria-labelledby="navbarDropdown">
                         {% if session.user %}
                             <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
-                            <li><a class="dropdown-item" href="/admin">Administration</a></li>
                             {% if session.user.is_admin %}
                                 <li><a href="/admin" class="dropdown-item">Administration</a></li>
                             {% endif %}

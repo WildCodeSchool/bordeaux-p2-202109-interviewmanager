@@ -121,14 +121,22 @@ class UserController extends AbstractController
     {
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
+        $advancementManager = new AdvancementManager();
         $recomCompanies = $companyManager->recommendatingCompanies($userId);
         $recomCompaniesCount = $companyManager->companiesRecommendatingCount($userId);
         $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
-
+        $advancements = $advancementManager->selectAll();
+        $datas = [];
+        foreach ($advancements as $advancement) {
+            $datas[] = $companyManager->countCompanyFromAdvancementByUser($advancement['id'], $userId)['nb_status'];
+            $nameAdvancements[] = $advancement['name'];
+        }
         return $this->twig->render('User/pageProfil.html.twig', [
             'recommendating_companies' => $recomCompanies,
             'recommendating_companies_count' => $recomCompaniesCount,
-            'interested_companies_count' => $interestedCompaniesCount
+            'interested_companies_count' => $interestedCompaniesCount,
+            'datas' => $datas,
+            'name_advancements' => $nameAdvancements,
         ]);
     }
 
