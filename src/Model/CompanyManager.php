@@ -173,7 +173,8 @@ class CompanyManager extends AbstractManager
             SELECT count(company.advancement_id) as nb_status 
             FROM company 
             WHERE company.advancement_id=:advancement_id
-            AND company.user_id=:user_id');
+            AND company.user_id=:user_id
+            AND is_recommendating = false');
         $statement->bindValue(':advancement_id', $advancementId, \PDO::PARAM_INT);
         $statement->bindValue(':user_id', $userId, \PDO::PARAM_INT);
         $statement->execute();
