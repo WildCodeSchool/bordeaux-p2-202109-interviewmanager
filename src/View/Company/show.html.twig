@@ -15,9 +15,18 @@
             <div class="card-footer text-muted text-center">
                 Personnes qui connaissent cette entreprise
             </div>
+                <div>
+                    <ul class="list-group p-3">
+                        {% for user in users %}
+                        <li class="list-group mt-2">
+                            {{ user.full_name }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
         </div>
     </div>
-
     <form class="d-flex justify-content-center p-5 mt-5" method="post">
         <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
             <div class="mb-3">

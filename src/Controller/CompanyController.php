@@ -51,17 +51,22 @@ class CompanyController extends AbstractController
     public function show(): string
     {
         $companyManager = new CompanyManager();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $posts = [];
             foreach ($_POST as $key => $value) {
                 $posts[$key] = trim($value);
             }
-            $companyManager->update($posts);
+
+            $companyManager->update($posts, $_GET['id']);
             header('Location: /accueil');
         }
+
         $company = $companyManager->selectOneById($_GET['id']);
+        $userRecom = $companyManager->CompanyRecommendatingUsers($company['name']);
         return $this->twig->render('Company/show.html.twig', [
-            'company' => $company
+            'company' => $company,
+            'users' => $userRecom,
             ]);
     }
 

@@ -8,12 +8,13 @@
 body {
     font-family: 'Oswald', sans-serif;
     background-color: var(--secondary);
-    }
+    background: url("../images/trianglify2.png") no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+    
 #logo {
     width: 6vw;
-}
-#sticker {
-    width: 7vw;
 }
 .github-avatar{
     height: 70px;
@@ -21,12 +22,20 @@ body {
 #avatar{
     border-radius: 50%;
 }
+.btn {
+    background-color: #E55855;
+    color: #EDEDE8;
+}
+.formco, .formreg, .formadd {
+    box-shadow: 8px 8px 10px rgba(17,17,17, 0.5);
+}
 #boostrap-override .nav-link {
     color: var(--primary);
 }
 .dropdown-menu[data-bs-popper] {
     left: -7rem;
 }
+
 .longName {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -34,4 +43,22 @@ body {
 }
 .no-recommendating {
     color: var(--third);
+}
+
+#autocompletion {
+    z-index: 1;
+}
+
+.autocomplete:hover {
+    transition: all 0.3s;
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+#boostrap-override .text-primary {
+    color: var(--primary) !important;
+}
+
+#chart {
+    max-width: 700px;
 }

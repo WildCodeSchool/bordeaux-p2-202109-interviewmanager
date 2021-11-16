@@ -33,6 +33,9 @@
                         {% if session.user %}
                             <li><a class="dropdown-item" href="/profil">Mon compte</a></li>
                             <li><a class="dropdown-item" href="/admin">Administration</a></li>
+                            {% if session.user.is_admin %}
+                                <li><a href="/admin" class="dropdown-item">Administration</a></li>
+                            {% endif %}
                             <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
                         {% else %}
                             <a class="dropdown-item" href="/">Connectez-vous</a>

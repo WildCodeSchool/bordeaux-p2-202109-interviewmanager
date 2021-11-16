@@ -20,4 +20,26 @@
     </form>
 </div>
 </div>
+    <div class="card m-4" style="width: 22rem;">
+        <div class="card-header">Nombre d'entreprises que je peux recommander: </div>
+        <ul class="list-group list-group-flush">
+            {% for countRecommendating in recommendating_companies_count %}
+            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                {{ countRecommendating }}
+            </li>
+        </ul>
+                </div>
+                <div class="card m-4" style="width: 22rem;">
+                <div class="card-header">Nombre d'entreprises par lesquelles je suis intéressé: </div>
+
+                <ul class="list-group list-group-flush">
+            {% endfor %}
+            {% for countInterested in interested_companies_count %}
+            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                    {{ countInterested }}
+            </li>
+
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

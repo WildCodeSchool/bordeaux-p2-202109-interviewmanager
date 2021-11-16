@@ -55,16 +55,18 @@ class CompanyManager extends AbstractManager
         return $statement->fetchAll();
     }
 
-    public function update(array $posts)
+    public function update(array $posts, $id)
     {
         $statement = $this->pdo->prepare('
                 UPDATE company 
                 SET description=:description, address=:address, 
-                phone_number=:phone_number, mail=:mail');
+                phone_number=:phone_number, mail=:mail
+                WHERE id=:id');
         $statement->bindValue(':description', $posts['description'], \PDO::PARAM_STR);
         $statement->bindValue(':address', $posts['address'], \PDO::PARAM_STR);
         $statement->bindValue(':phone_number', $posts['phone_number'], \PDO::PARAM_STR);
         $statement->bindValue(':mail', $posts['mail'], \PDO::PARAM_STR);
+        $statement->bindValue(':id', $id, \PDO::PARAM_STR);
         $statement->execute();
     }
     public function countUserForCompanyiesIsRecommendating(string $name): int
@@ -119,5 +121,35 @@ class CompanyManager extends AbstractManager
         $statement->execute();
 
         return $statement->fetchAll();
+    }
+    public function companiesRecommendatingCount($id): array
+    {
+        $statement = $this->pdo->prepare('
+        SELECT Count(*) as nb_recommendating FROM company WHERE user_id=:id AND is_recommendating = true
+        ');
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+    public function companiesInterestedCount($id): array
+    {
+        $statement = $this->pdo->prepare('
+        SELECT Count(*) as nb_recommendating FROM company WHERE user_id=:id AND is_recommendating = false
+        ');
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
+    public function countCompanyFromAdvancement(int $advancementId): array
+    {
+        $statement = $this->pdo->prepare('
+            SELECT count(company.advancement_id) as nb_status 
+            FROM company 
+            WHERE company.advancement_id=:advancement_id');
+        $statement->bindValue(':advancement_id', $advancementId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
     }
 }

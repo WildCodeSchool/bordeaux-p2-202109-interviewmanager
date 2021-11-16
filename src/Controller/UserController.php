@@ -16,6 +16,12 @@ class UserController extends AbstractController
         }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
+        $allCompanies = $companyManager->selectAll();
+        $nameCompanies = [];
+        foreach ($allCompanies as $company) {
+            $nameCompanies[] = $company['name'];
+        }
+        $companies = array_unique($nameCompanies);
         $userCompanies = $companyManager->selectCompaniesByUser($userId);
         foreach ($userCompanies as $key => $userCompany) {
             $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
@@ -44,6 +50,7 @@ class UserController extends AbstractController
         return $this->twig->render('User/index.html.twig', [
             'user_companies' => $userCompanies,
             'advancements' => $advancements,
+            'companies' => $companies,
             'errors' => $errors,
             'success' => $success,
             'recommendations' => $recommendations,
@@ -106,17 +113,33 @@ class UserController extends AbstractController
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $recomCompanies = $companyManager->recommendatingCompanies($userId);
+        $recomCompaniesCount = $companyManager->companiesRecommendatingCount($userId);
+        $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
 
         return $this->twig->render('User/pageProfil.html.twig', [
-            'recommendating_companies' => $recomCompanies
+            'recommendating_companies'       => $recomCompanies,
+            'recommendating_companies_count' => $recomCompaniesCount,
+            'interested_companies_count'     => $interestedCompaniesCount
         ]);
     }
-    public function logout(): void
+    
+    public function updateAdvancement()
+    {
+        $json = json_decode(file_get_contents('php://input'));
+        $datas = [
+            'user_id' => $json->userId,
+            'company-id' => $json->companyId,
+            'advancement' => $json->advancement,
+        ];
+        $companyManager = new CompanyManager();
+        $companyManager->updateCompanyAdvancement($datas);
+        return json_encode('ok');
+    }
+  public function logout(): void
     {
         if (empty($_SESSION)) {
             header('Location: /');
         }
         session_destroy();
         header('Location: /');
-    }
 }
