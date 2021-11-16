@@ -35,14 +35,28 @@ class CompanyManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
-    public function selectCompaniesByUser(int $id)
+    public function selectCompaniesByUserOrderDESC(int $id)
     {
         $statement = $this->pdo->prepare("
         SELECT c.id, c.name, c.is_recommendating, a.level, a.name as advancement_name FROM company c
         JOIN advancement a 
         ON a.id = c.advancement_id
-        WHERE user_id=:id");
+        WHERE user_id=:id
+        ORDER BY a.level desc");
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+    public function selectCompaniesByLevel(int $id, $level)
+    {
+        $statement = $this->pdo->prepare("
+        SELECT c.id, c.name, c.is_recommendating, a.level, a.name as advancement_name FROM company c
+        JOIN advancement a 
+        ON a.id = c.advancement_id
+        WHERE user_id=:id AND a.name=:level");
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+        $statement->bindValue(':level', $level, \PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetchAll();
