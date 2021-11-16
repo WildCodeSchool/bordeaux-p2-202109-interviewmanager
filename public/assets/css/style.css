@@ -12,7 +12,11 @@ body {
     -webkit-background-size: cover;
     background-size: cover;
 }
-    
+.navbar, .footer {
+    background: url("../images/fondnavbar.png") no-repeat center fixed;
+    background-size: cover;
+}
+
 #logo {
     width: 6vw;
 }
