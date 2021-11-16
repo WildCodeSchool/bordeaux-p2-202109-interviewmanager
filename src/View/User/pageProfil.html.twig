@@ -51,40 +51,4 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 <script src="assets/js/chart.js"></script>
 {% endblock %}
-<div id="background-image-profil">
-<div class="card m-4 pt-5" style="width: 22rem;">
-    <div class="card-header">Les entreprises où j'ai des contacts :</div>
-    <ul class="list-group list-group-flush">
-        {% for company in recommendating_companies %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                <div class="d-flex align-items-center">
-                    <h5>{{ company.name }}</h5>
-                </div>
-                {% include 'components/_trash.html.twig' %}
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-</div>
-    <div class="card m-4" style="width: 22rem;">
-        <div class="card-header">Nombre d'entreprises que je peux recommander: </div>
-        <ul class="list-group list-group-flush">
-            {% for countRecommendating in recommendating_companies_count %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                {{ countRecommendating }}
-            </li>
-        </ul>
-                </div>
-                <div class="card m-4" style="width: 22rem;">
-                <div class="card-header">Nombre d'entreprises par lesquelles je suis intéressé: </div>
-
-                <ul class="list-group list-group-flush">
-            {% endfor %}
-            {% for countInterested in interested_companies_count %}
-            <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                    {{ countInterested }}
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
 {% endblock %}
