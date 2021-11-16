@@ -1,5 +1,24 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
+<div class="container mb-5">
+        <div class="d-flex justify-content-center">
+            <form class="d-flex align-items-center col-8 col-md-3" method="get">
+                <div class="mb-3">
+                    <label for="disabledSelect" class="form-label col-md-4 col-md-offset-4"></label>
+                    <select id="disabledSelect" name="advancement" class="form-select">
+                        <option value="">Tous</option>
+                        {% for advancement in advancements %}
+                            <option value="{{ advancement.name }}">
+                                {{ advancement.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mt-2 p-2">
+                    <button type="submit" class="btn">Modifier</button>
+                </div>
+            </form>
+        </div>
 {% include 'components/_formAddCompany.html.twig' %}
     <div class="container mb-5">
         <ul class="formadd list-group mt-5">
