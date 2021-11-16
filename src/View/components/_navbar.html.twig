@@ -7,7 +7,7 @@
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-2 justify-content-between">
                 <li class="nav-item">
                     <a class="nav-link active fs-4" aria-current="page" href="/accueil">Accueil</a>
@@ -15,7 +15,7 @@
             </ul>
             <div class="fs-5">
                 {% if (session.user.profil_github) %}
-                    <img class="github-avatar"
+                    <img class="github-avatar m-2"
                          src="https://avatars.githubusercontent.com/{{ session.user.profil_github }}" alt="avatar"
                          id="avatar">
                     {{ session.user.firstname }}
