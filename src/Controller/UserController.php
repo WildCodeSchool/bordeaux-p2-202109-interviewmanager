@@ -76,20 +76,22 @@ class UserController extends AbstractController
                 $posts[$key] = trim($value);
             }
             $userManager = new UserManager();
-            $mailVerif = $userManager->selectOneByEmail($_POST['InputEmail1']);
+            $mailVerif = $userManager->selectOneByEmail($_POST['mail']);
             $formValidator->checkName($_POST['firstname'], 'prénom');
             $formValidator->checkName($_POST['lastname'], 'nom');
-            $formValidator->checkMail($_POST['InputEmail1'], $mailVerif);
-            $formValidator->checkPassword($_POST['InputPassword1']);
+            $formValidator->checkProfilGithub($_POST['profilGithub']);
+            $formValidator->checkMail($_POST['mail'], $mailVerif);
+            $formValidator->checkPassword($_POST['password']);
             $errors = $formValidator->getErrors();
             if (count($errors) === 0) {
                 $userManager = new UserManager();
-                $posts['InputPassword1'] = password_hash($_POST['InputPassword1'], PASSWORD_DEFAULT);
+                $posts['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $userManager->create($posts);
             }
         }
         return $this->twig->render('User/formRegister.html.twig', ['errors' => $errors]);
     }
+
     public function connect(): string
     {
         if (!empty($_SESSION)) {
@@ -98,9 +100,9 @@ class UserController extends AbstractController
         $error = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userManager = new UserManager();
-            $userData = $userManager->selectOneByEmail($_POST['InputEmail1']);
+            $userData = $userManager->selectOneByEmail($_POST['mail']);
             if ($userData !== false) {
-                if (password_verify($_POST['InputPassword1'], $userData['password'])) {
+                if (password_verify($_POST['password'], $userData['password'])) {
                     $_SESSION['user'] = $userData;
                     header('Location: accueil');
                 } else {
@@ -111,17 +113,8 @@ class UserController extends AbstractController
             }
         }
         return $this->twig->render('User/formConnect.html.twig', [
-                'error' => $error,
-                ]);
-    }
-
-    public function logout(): void
-    {
-        if (empty($_SESSION)) {
-            header('Location: /');
-        }
-        session_destroy();
-        header('Location: /');
+            'error' => $error,
+        ]);
     }
 
     public function profil(): string
@@ -133,9 +126,31 @@ class UserController extends AbstractController
         $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
 
         return $this->twig->render('User/pageProfil.html.twig', [
-            'recommendating_companies'       => $recomCompanies,
+            'recommendating_companies' => $recomCompanies,
             'recommendating_companies_count' => $recomCompaniesCount,
-            'interested_companies_count'     => $interestedCompaniesCount
+            'interested_companies_count' => $interestedCompaniesCount
         ]);
+    }
+
+    public function updateAdvancement()
+    {
+        $json = json_decode(file_get_contents('php://input'));
+        $datas = [
+            'user_id' => $json->userId,
+            'company-id' => $json->companyId,
+            'advancement' => $json->advancement,
+        ];
+        $companyManager = new CompanyManager();
+        $companyManager->updateCompanyAdvancement($datas);
+        return json_encode('ok');
+    }
+
+    public function logout(): void
+    {
+        if (empty($_SESSION)) {
+            header('Location: /');
+        }
+        session_destroy();
+        header('Location: /');
     }
 }

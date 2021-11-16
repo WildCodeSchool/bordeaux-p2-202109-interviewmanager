@@ -1,30 +1,9 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <form method="post" class="d-flex justify-content-center p-5 mt-5">
-        <div class="border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
-            <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
-            <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
-            {% if errors is not empty %}
-                <div class="alert alert-danger text-center">
-                    {{ errors.erreur | first }}
-                </div>
-            {% endif %}
-            {% if success|length > 0 %}
-                <div class="alert alert-success text-center">
-                    {{ success }}
-                </div>
-            {% endif %}
-            <div class="m-2">
-                <label for="company" class="form-label">Entre une entreprise</label>
-                <input type="text" name="name" class="form-control" id="company" data-name="{{ companies|join(',') }}">
-                <ul class="list-group position-absolute" id="autocompletion"></ul>
-            </div>
-            <div class="text-center"><button type="submit" class="btn btn-primary mt-4">Ajouter</button></div>
-        </div>
-    </form>
+    {% include 'components/_formAddCompany.html.twig' %}
     <div class="container" id="chart">
-        <canvas id="myChart" width="200" height="200" data-name="{{ name_advancements|join(',') }}" data-stat="{{ stats|join(',') }}"></canvas>
+        <canvas id="myChart" width="200" height="200" data-name="{{ name_advancements|join(',') }}" data-stat="{{ stats|join(',') }}" data-admin="1"></canvas>
     </div>
     <div class="container d-flex flex-column flex-md-row justify-content-between my-5">
         <div class="card col-12 col-md-5 mb-5 mb-sm-0">
