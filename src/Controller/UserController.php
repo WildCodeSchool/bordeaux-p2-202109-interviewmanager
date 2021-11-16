@@ -153,4 +153,5 @@ class UserController extends AbstractController
         session_destroy();
         header('Location: /');
     }
+
 }
