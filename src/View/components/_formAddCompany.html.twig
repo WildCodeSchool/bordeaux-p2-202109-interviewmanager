@@ -1,6 +1,6 @@
 <form method="post" {{ session.user.is_admin == false ? 'action="/ajoutEntreprise"' : '' }}  class="d-flex justify-content-center p-5 mt-5">
     <div class="formadd border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
-        <p><i class="fas fa-plus-square fa-3x d-flex justify-content-center"></i></p>
+        <p><i class="fas fa-plus-circle fa-3x d-flex justify-content-center"></i></p>
         <h2 class="d-flex justify-content-center">Ajout d'entreprises</h2>
         {% if errors is not empty %}
             <div class="alert alert-danger text-center">
