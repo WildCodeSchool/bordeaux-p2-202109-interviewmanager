@@ -66,3 +66,7 @@ body {
 #chart {
     max-width: 700px;
 }
+
+.footer {
+    margin-top: 6rem;
+}
