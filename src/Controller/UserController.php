@@ -82,14 +82,18 @@ class UserController extends AbstractController
             $mailVerif = $userManager->selectOneByEmail($_POST['mail']);
             $formValidator->checkName($_POST['firstname'], 'prénom');
             $formValidator->checkName($_POST['lastname'], 'nom');
-            $formValidator->checkProfilGithub($_POST['profilGithub']);
             $formValidator->checkMail($_POST['mail'], $mailVerif);
             $formValidator->checkPassword($_POST['password']);
+            if (empty($_POST['profilGithub'])) {
+                $posts['profilGithub'] = 'wildcodeschool';
+            }
             $errors = $formValidator->getErrors();
             if (count($errors) === 0) {
                 $userManager = new UserManager();
                 $posts['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $userManager->create($posts);
+                $userId = $userManager->create($posts);
+                $_SESSION['user'] = $userManager->selectOneById($userId);
+                header('Location: accueil');
             }
         }
         return $this->twig->render('User/formRegister.html.twig', ['errors' => $errors]);

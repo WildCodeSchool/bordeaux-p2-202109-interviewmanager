@@ -9,16 +9,10 @@ class FormValidator
     public function checkName(string $string, string $name): void
     {
         if (empty($string)) {
-            $this->errors[] = 'Le champs ' . $name . ' est requis';
+            $this->errors[] = 'Le champ ' . $name . ' est requis';
         }
-        /*if (!preg_match("/^[a-zA-Z-' ]*$/", $string)) {
+        if (!preg_match("/^[a-zA-Z àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]*$/", $string)) {
             $this->errors[] = 'Seuls des lettres et espaces sont autorisées.';
-        }*/
-    }
-    public function checkProfilGithub(string $profilGithub): void
-    {
-        if (empty($profilGithub)) {
-            $this->errors[] = 'Le champs ' . $profilGithub . ' est requis';
         }
     }
     public function checkMail(string $mail, $isMailExist): void
@@ -33,10 +27,10 @@ class FormValidator
     public function checkPassword(string $pass): void
     {
         if (empty($pass)) {
-            $this->errors[] = 'Un mot-de-passe est requis';
+            $this->errors[] = 'Un mot de passe est requis';
         }
         if (strlen($pass) < 2 && strlen($pass) > 0) {
-            $this->errors[] = 'Le mot-de-passe est trop court';
+            $this->errors[] = 'Le mot de passe est trop court';
         }
     }
     public function getErrors(): array
