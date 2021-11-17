@@ -20,6 +20,7 @@ class UserManager extends AbstractManager
         $statement->bindValue(':mail', $userData['mail'], \PDO::PARAM_STR);
         $statement->bindValue(':password', $userData['password'], \PDO::PARAM_STR);
         $statement->execute();
+        return $this->pdo->lastInsertId();
     }
     public function selectOneByEmail(string $mail)
     {
