@@ -13,6 +13,10 @@ class UserController extends AbstractController
     {
         if (empty($_SESSION)) {
             header('Location: /');
+            exit();
+        }
+        if ($_SESSION['user']['is_admin']) {
+            header('Location: /admin');
         }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
@@ -30,18 +34,12 @@ class UserController extends AbstractController
         } else {
             $userCompanies = $companyManager->selectCompaniesByUserOrderDESC($userId);
         }
-
         foreach ($userCompanies as $key => $userCompany) {
             $countRecommendating = $companyManager->countUserForCompanyiesIsRecommendating($userCompany['name']);
             $userCompanies[$key]['count_recommendating'] = $countRecommendating;
         }
         $advancementManager = new AdvancementManager();
         $advancements = $advancementManager->selectAll();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $_POST['user_id'] = $userId;
-            $companyManager->updateCompanyAdvancement($_POST);
-            header('Location: /accueil');
-        }
         $errors = [];
         $success = '';
         $recommendations = [];
@@ -130,6 +128,7 @@ class UserController extends AbstractController
         $interestedCompaniesCount = $companyManager->companiesInterestedCount($userId);
         $advancements = $advancementManager->selectAll();
         $datas = [];
+        $nameAdvancements = [];
         foreach ($advancements as $advancement) {
             $datas[] = $companyManager->countCompanyFromAdvancementByUser($advancement['id'], $userId)['nb_status'];
             $nameAdvancements[] = $advancement['name'];
