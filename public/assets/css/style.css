@@ -16,12 +16,20 @@ body {
     background: url("../images/fondnavbar.png") no-repeat center fixed;
     background-size: cover;
 }
+.fontdropadmin {
+    font-size: medium;
+}
+
+.usernav {
+    font-size: x-large;
+}
 
 #logo {
     width: 6vw;
 }
 .github-avatar{
-    height: 70px;
+    height: auto;
+    width: 50px;
 }
 #avatar{
     border-radius: 50%;
