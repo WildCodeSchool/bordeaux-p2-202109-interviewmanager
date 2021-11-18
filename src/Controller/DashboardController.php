@@ -37,7 +37,7 @@ class DashboardController extends AbstractController
             header('Location: admin?' . http_build_query($queryString));
         }
         if (!empty($_GET['errors'])) {
-            $errors['erreur'] = $_GET['errors'];
+            $errors['error'] = $_GET['errors'];
         }
         if (!empty($_GET['success'])) {
             $success = $_GET['success'];
