@@ -124,6 +124,10 @@ class UserController extends AbstractController
 
     public function profil(): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /');
+            exit();
+        }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
         $advancementManager = new AdvancementManager();
