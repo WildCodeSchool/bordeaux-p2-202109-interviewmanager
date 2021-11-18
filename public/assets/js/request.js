@@ -6,7 +6,7 @@ for (let i = 0; i < select.length; i++) {
         const companyId = select[i].dataset.id;
         const advancementId = select[i].value;
         const userId = select[i].dataset.user;
-        fetch('http://localhost:8000/update/advance', {
+        fetch('/update/advance', {
             method: 'POST',
             body: JSON.stringify({'companyId': companyId, 'advancement': advancementId, 'userId': userId})
         })
