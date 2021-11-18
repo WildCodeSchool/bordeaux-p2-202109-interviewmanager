@@ -11,6 +11,7 @@ class DashboardController extends AbstractController
     {
         if (empty($_SESSION)) {
             header('Location: /');
+            exit();
         }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
@@ -18,6 +19,7 @@ class DashboardController extends AbstractController
         $errors = [];
         $success = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_POST['name'] = strtolower($_POST['name']);
             $_POST['user_id'] = $userId;
             $_POST['is_recommendating'] = true;
             if (empty($_POST['name'])) {
@@ -36,7 +38,7 @@ class DashboardController extends AbstractController
             header('Location: admin?' . http_build_query($queryString));
         }
         if (!empty($_GET['errors'])) {
-            $errors['erreur'] = $_GET['errors'];
+            $errors['error'] = $_GET['errors'];
         }
         if (!empty($_GET['success'])) {
             $success = $_GET['success'];

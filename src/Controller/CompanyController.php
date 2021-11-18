@@ -15,7 +15,7 @@ class CompanyController extends AbstractController
         $recommendations = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['user_id'] = $userId;
-            $_POST['name'] = trim($_POST['name']);
+            $_POST['name'] = trim(strtolower($_POST['name']));
             if (empty($_POST['name'])) {
                 $errors[] = 'Merci de rentrer le nom d\'une entreprise';
             } elseif (strlen($_POST['name']) < 2) {
