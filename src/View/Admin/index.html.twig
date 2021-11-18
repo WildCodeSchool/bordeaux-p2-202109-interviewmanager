@@ -12,7 +12,7 @@
                 <h5 class="text-center">Liste des entreprises recommandées</h5>
                 <ul class="list-group">
                     {% for company in recommendating_companies %}
-                        <li class="list-group-item">{{ company.name }} est recommandée par {{ company.nb_user_recommendating }} personnes</li>
+                        <li class="list-group-item">{{ company.name|capitalize }} est recommandée par {{ company.nb_user_recommendating }} personne{{ recommendating_companies|length == 1 ? 's' : '' }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                 <h5 class="text-center">Liste des entreprises en sourcing</h5>
                 <ul class="list-group">
                     {% for company in all_interesting %}
-                        <li class="list-group-item">{{ company.name }} est suivie par {{ company.nb_user_interessing }} personnes</li>
+                        <li class="list-group-item">{{ company.name|capitalize }} est suivie par {{ company.nb_user_interessing }} personne{{ all_intessing|length == 1 ? 's' : '' }}</li>
                     {% endfor %}
                 </ul>
             </div>

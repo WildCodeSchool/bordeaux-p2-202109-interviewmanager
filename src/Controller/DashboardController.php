@@ -19,6 +19,7 @@ class DashboardController extends AbstractController
         $errors = [];
         $success = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $_POST['name'] = strtolower($_POST['name']);
             $_POST['user_id'] = $userId;
             $_POST['is_recommendating'] = true;
             if (empty($_POST['name'])) {
