@@ -11,6 +11,7 @@ class DashboardController extends AbstractController
     {
         if (empty($_SESSION)) {
             header('Location: /');
+            exit();
         }
         $userId = $_SESSION['user']['id'];
         $companyManager = new CompanyManager();
