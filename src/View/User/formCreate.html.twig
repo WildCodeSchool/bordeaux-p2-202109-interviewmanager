@@ -1,16 +1,16 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
-<form class="d-flex justify-content-center p-5 mt-5" method="POST">
-            <div class="formreg border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
-                <p><i class="fas fa-user-plus fa-3x d-flex justify-content-center"></i></p>
-                <h2 class="d-flex justify-content-center">Inscription</h2>
-                {% if errors|length >= 1 %}
+    <form class="d-flex justify-content-center p-5 mt-5" method="POST">
+        <div class="formreg border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+            <p><i class="fas fa-user-plus fa-3x d-flex justify-content-center"></i></p>
+            <h2 class="d-flex justify-content-center">Inscription</h2>
+            {% if errors|length >= 1 %}
                 <div class="alert alert-danger" role="alert">
                     {% for error in errors %}
                         {{ error }} <br>
                     {% endfor %}
                 </div>
-                {% endif %}
+            {% endif %}
             <div class="m-2">
                 <label for="firstname" class="form-label">Prénom</label>
                 <input type="text" name="firstname" class="form-control" id="firstname" aria-describedby="emailHelp">
@@ -36,7 +36,7 @@
                 <input type="password" name="password" class="form-control" id="password">
             </div>
             <div class="text-center"><button type="submit" class="btn mt-4">S'inscrire</button></div>
-            </div>
-        </form>
+        </div>
+    </form>
     <div class="text-center mb-5"><a href="/.." class="nav-link text-light">Déjà un compte? Se connecter</a></div>
 {% endblock %}

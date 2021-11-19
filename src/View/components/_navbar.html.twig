@@ -18,7 +18,7 @@
                     <img class="github-avatar m-2"
                          src="https://avatars.githubusercontent.com/{{ session.user.profil_github }}" alt="avatar"
                          id="avatar">
-                    {{ session.user.firstname }}
+                    {{  session.user.firstname ? session.user.firstname|capitalize : session.user.profil_github }}
                 {% elseif session.user %}
                     <i class="fab fa-github fa-2x"></i>
                 {% endif %}

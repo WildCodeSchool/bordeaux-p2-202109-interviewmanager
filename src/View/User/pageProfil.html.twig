@@ -3,20 +3,27 @@
 {% block content %}
 <div class="d-flex my-5 flex-column flex-md-row justify-content-center justify-content-sm-around align-items-center">
     <div class="col-12 col-md-5 ">
+        <div class="card mb-4 mx-auto col-9">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="/monProfil" class="nav-link">Modifier mon profil</a>
+                </li>
+            </ul>
+        </div>
         <div class="card m-4 mx-auto col-9">
             <div class="card-header">
                 Les entreprises où j'ai des contacts :
             </div>
-                <ul class="list-group list-group-flush">
-                    {% for company in recommendating_companies %}
-                        <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
-                            <div class="d-flex align-items-center">
-                                <h5>{{ company.name }}</h5>
-                            </div>
-                            {% include 'components/_trash.html.twig' %}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <ul class="list-group list-group-flush">
+                {% for company in recommendating_companies %}
+                    <li class="list-group-item d-grid gap-2 d-md-flex justify-content-between border-bottom" style="border-width: inherit">
+                        <div class="d-flex align-items-center">
+                            <h5>{{ company.name }}</h5>
+                        </div>
+                        {% include 'components/_trash.html.twig' %}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="card m-4 mx-auto col-9">
             <div class="card-header">

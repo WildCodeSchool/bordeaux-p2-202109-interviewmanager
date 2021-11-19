@@ -6,6 +6,7 @@ use App\Model\AdvancementManager;
 use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
+use App\Service\GitLogger;
 
 class UserController extends AbstractController
 {
@@ -64,7 +65,55 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function register(): string
+    public function login(): string
+    {
+        if (!empty($_SESSION)) {
+            header('Location: /accueil');
+        }
+        $error = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userManager = new UserManager();
+            $userData = $userManager->selectOneByEmail($_POST['mail']);
+            if ($userData !== false) {
+                if (password_verify($_POST['password'], $userData['password'])) {
+                    $_SESSION['user'] = $userData;
+                    header('Location: accueil');
+                } else {
+                    $error = 'Vos identifiants sont incorrects';
+                }
+            } else {
+                $error = 'Vos identifiants sont incorrects';
+            }
+        }
+        $params = [
+            "client_id" => GIT_CLIENT,
+            "redirect_uri" => REDIRECT_URI,
+            "access_type" => "online",
+            "response_type" => "code",
+        ];
+        $url = 'https://github.com/login/oauth/authorize?' . http_build_query($params);
+
+        return $this->twig->render('User/connect.html.twig', [
+            'url' => $url,
+            'error' => $error
+        ]);
+    }
+
+    public function connect(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            $log = new GitLogger($_GET['code']);
+            $userData = $log->getUser();
+            $user = $log->getAndPersist($userData);
+            $_SESSION['user'] = $user;
+        }
+        if (isset($_GET['code'])) {
+            header('Location: /');
+            exit();
+        }
+    }
+
+    public function createUser()
     {
         if (!empty($_SESSION)) {
             header('Location: /accueil');
@@ -89,37 +138,26 @@ class UserController extends AbstractController
             if (count($errors) === 0) {
                 $userManager = new UserManager();
                 $posts['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $userId = $userManager->create($posts);
+                $userId = $userManager->creatByForm($posts);
                 $_SESSION['user'] = $userManager->selectOneById($userId);
                 header('Location: accueil');
             }
         }
-        return $this->twig->render('User/formRegister.html.twig', ['errors' => $errors]);
+        return $this->twig->render('User/formCreate.html.twig', ['errors' => $errors]);
     }
 
-    public function connect(): string
+    public function updateProfil()
     {
-        if (!empty($_SESSION)) {
-            header('Location: /accueil');
-        }
-        $error = "";
+        $userManager = new UserManager();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userManager = new UserManager();
-            $userData = $userManager->selectOneByEmail($_POST['mail']);
-            if ($userData !== false) {
-                if (password_verify($_POST['password'], $userData['password'])) {
-                    $_SESSION['user'] = $userData;
-                    header('Location: accueil');
-                } else {
-                    $error = 'Vos identifiants sont incorrects';
-                }
-            } else {
-                $error = 'Vos identifiants sont incorrects';
-            }
+            $posts = array_map('trim', $_POST);
+            $posts['id'] = $_SESSION['user']['id'];
+            $userManager->update($posts);
+            $userId = $_SESSION['user']['id'];
+            $_SESSION['user'] = $userManager->selectOneById($userId);
+            header('Location: /profil');
         }
-        return $this->twig->render('User/formConnect.html.twig', [
-            'error' => $error,
-        ]);
+        return $this->twig->render('User/profil.html.twig');
     }
 
     public function profil(): string
