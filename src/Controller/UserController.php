@@ -7,6 +7,7 @@ use App\Model\CompanyManager;
 use App\Model\UserManager;
 use App\Service\FormValidator;
 use App\Service\GitLogger;
+use App\Service\GoogleLogger;
 
 class UserController extends AbstractController
 {
@@ -85,16 +86,25 @@ class UserController extends AbstractController
                 $error = 'Vos identifiants sont incorrects';
             }
         }
-        $params = [
+        $paramsGit = [
             "client_id" => GIT_CLIENT,
             "redirect_uri" => REDIRECT_URI,
             "access_type" => "online",
             "response_type" => "code",
         ];
-        $url = 'https://github.com/login/oauth/authorize?' . http_build_query($params);
+        $paramsGoogle = [
+            'client_id' => GOOGLE_ID,
+            'redirect_uri' => GOOGLE_REDIRECT_URI,
+            'scope' => 'email profile',
+            'access_type' => 'online',
+            'response_type' => 'code',
+        ];
+        $url = 'https://github.com/login/oauth/authorize?' . http_build_query($paramsGit);
+        $url_google = 'https://accounts.google.com/o/oauth2/v2/auth?' . http_build_query($paramsGoogle);
 
         return $this->twig->render('User/connect.html.twig', [
             'url' => $url,
+            'url_google' => $url_google,
             'error' => $error
         ]);
     }
@@ -110,6 +120,17 @@ class UserController extends AbstractController
         if (isset($_GET['code'])) {
             header('Location: /');
             exit();
+        }
+    }
+
+    public function connectWithGoogle()
+    {
+        if (!isset($_SESSION['user'])) {
+            $log = new GoogleLogger($_GET['code']);
+            $userData = $log->getUser();
+            $user = $log->getAndPersist($userData);
+            $_SESSION['user'] = $user;
+            header('Location: /');
         }
     }
 

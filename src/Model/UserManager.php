@@ -18,6 +18,18 @@ class UserManager extends AbstractManager
         $statement->execute();
         return $this->pdo->lastInsertId();
     }
+    public function createWithGoogle(array $userData)
+    {
+        $statement = $this->pdo->prepare('
+        INSERT INTO user (mail, firstname, profil_github, created_at, is_admin)
+        VALUES (:mail, :firstname, :profil_github, NOW(), false)
+        ');
+        $statement->bindValue(':mail', $userData['email'], \PDO::PARAM_STR);
+        $statement->bindValue(':firstname', $userData['name'], \PDO::PARAM_STR);
+        $statement->bindValue(':profil_github', '', \PDO::PARAM_STR);
+        $statement->execute();
+        return $this->pdo->lastInsertId();
+    }
 
     public function creatByForm(array $data)
     {

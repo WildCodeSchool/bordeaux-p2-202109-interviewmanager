@@ -13,7 +13,7 @@
                 <input type="text" name="lastname" class="form-control" id="lastname" value="{{ session.user.lastname }}">
             </div>
             <div class="m-2">
-                <label for="profilGithub" class="form-label">Nom</label>
+                <label for="profilGithub" class="form-label">Profil Github</label>
                 <input type="text" name="profilGithub" class="form-control" id="profilGithub" value="{{ session.user.profil_github == 'wildcodeschool' ? '' :  session.user.profil_github }}">
             </div>
             <div class="text-center"><button type="submit" class="btn mt-4">Mettre à jour</button></div>

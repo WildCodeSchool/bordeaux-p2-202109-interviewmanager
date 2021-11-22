@@ -10,7 +10,9 @@ define('DB_NAME', getenv('DB_NAME') ? getenv('DB_NAME') : APP_DB_NAME);
 define('GIT_SECRET', '63e89d4425232147d19ff7e5eedd03db35bd3987');
 define('GIT_CLIENT', 'cdcf8baf65a1aa0b4dba');
 define('REDIRECT_URI', 'http://localhost:8000//loggithub');
-
+define('GOOGLE_ID', '650008340376-1d1op76md2ar8055nm20m5tafa6vm0od.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET', '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');
+define('GOOGLE_REDIRECT_URI', 'http://localhost:8000/connection-google');
 //VIew
 define('APP_VIEW_PATH', __DIR__ . '/../src/View/');
 

@@ -20,5 +20,5 @@ return [
     'admin' => ['DashboardController', 'index'],
     'cgu' => ['CguController', 'cgu'],
     'supprimer' => ['CompanyController', 'delete', ['id']],
-
+    'connection-google' => ['UserController', 'connectWithGoogle'],
 ];
