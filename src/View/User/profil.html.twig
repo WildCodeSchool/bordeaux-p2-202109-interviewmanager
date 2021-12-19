@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <form method="post" autocomplete="off" class="d-flex justify-content-center p-5 mt-5">
+        <div class="formadd border border-2 rounded bg-light p-3 col-12 col-sm-10 col-md-8 col-lg-4 d-flex flex-column justify-content-center">
+            <p><i class="fas fa-pen-square fa-3x d-flex justify-content-center"></i></p>
+            <h2 class="d-flex justify-content-center">Mise à jour du profil</h2>
+            <div class="m-2">
+                <label for="firstname" class="form-label">Prénom</label>
+                <input type="text" name="firstname" class="form-control" id="firstname" value="{{ session.user.firstname }}">
+            </div>
+            <div class="m-2">
+                <label for="lastname" class="form-label">Nom</label>
+                <input type="text" name="lastname" class="form-control" id="lastname" value="{{ session.user.lastname }}">
+            </div>
+            <div class="m-2">
+                <label for="profilGithub" class="form-label">Profil Github</label>
+                <input type="text" name="profilGithub" class="form-control" id="profilGithub" value="{{ session.user.profil_github == 'wildcodeschool' ? '' :  session.user.profil_github }}">
+            </div>
+            <div class="text-center"><button type="submit" class="btn mt-4">Mettre à jour</button></div>
+        </div>
+    </form>
+{% endblock %}

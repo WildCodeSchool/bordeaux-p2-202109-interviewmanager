@@ -7,13 +7,10 @@
 //          3. (optional) array of query string keys to send as parameter to the method
 // e.g route '/item/edit?id=1' will execute $itemController->edit(1)
 return [
-    '' => ['UserController', 'connect',],
-    'inscription' => ['UserController', 'register',],
-    'items' => ['ItemController', 'index',],
-    'items/edit' => ['ItemController', 'edit', ['id']],
-    'items/show' => ['ItemController', 'show', ['id']],
-    'items/add' => ['ItemController', 'add',],
-    'items/delete' => ['ItemController', 'delete',],
+    '' => ['UserController', 'login',],
+    'loggithub' => ['UserController', 'connect',],
+    'monProfil' => ['UserController', 'updateProfil', ['id'],],
+    'inscription' => ['UserController', 'createUser'],
     'accueil' => ['UserController', 'index', ['id']],
     'update/advance' => ['UserController', 'updateAdvancement'],
     'logout' => ['UserController', 'logout'],
@@ -23,5 +20,5 @@ return [
     'admin' => ['DashboardController', 'index'],
     'cgu' => ['CguController', 'cgu'],
     'supprimer' => ['CompanyController', 'delete', ['id']],
-
+    'connection-google' => ['UserController', 'connectWithGoogle'],
 ];

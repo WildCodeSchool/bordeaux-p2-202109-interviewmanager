@@ -71,6 +71,10 @@ body {
     color: var(--primary) !important;
 }
 
+#boostrap-override .text-secondary {
+    color: var(--secondary) !important;
+}
+
 #chart {
     max-width: 700px;
 }
